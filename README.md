@@ -1,5 +1,3 @@
-ATS test-6
-
 libraries:
 - create-react-app with typescript
 - redux
@@ -9,17 +7,7 @@ libraries:
 - immutable.js
 - material-ui
 
-features:
-- add users (synchronous)
-- add todos for users (synchronous)
-- add todo from api if input left blank (asynchronous)
 
-todo:
-- ability to delete user
-- ability to "complete" tasks (strike-through on list)
-- ability to delete tasks
-- ability to create subtasks
-- error messages and validation for input / add (e.g. user without name)
 
 =====================
 
