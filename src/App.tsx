@@ -9,10 +9,10 @@ import { createBrowserHistory } from 'history';
 
 import defaultReducer from './reducers/default';
 
-import Home from './pages/Home';
-import UserList from './pages/UserList';
-import Todo from './pages/Todo';
-import TodoUser from './pages/TodoUser';
+import Home from './containers/Home';
+import UserList from './containers/UserList';
+import Todo from './containers/Todo';
+import TodoUser from './containers/TodoUser';
 
 import {
   Route,
