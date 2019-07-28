@@ -11,6 +11,10 @@ export enum DefaultActionTypes {
   ADD_USER = 'ADD_USER',
   ADD_TODO = 'ADD_TODO',
   ADD_CAT_FACT = 'ADD_CAT_FACT',
+  GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED',
+  GET_TRENDS_REQUESTED = 'GET_TRENDS_REQUESTED',
+  GET_TRENDS_SUCCEEDED = 'GET_TRENDS_SUCCEEDED',
+  GET_TRENDS_FAILED = 'GET_TRENDS_FAILED',
 }
 
 export interface IUser {
@@ -61,5 +65,27 @@ export class AddCatFactAction implements IAction {
       userId: number,
       todo: Record<ITodo>,
     }
+  ) {}
+}
+
+export class GetProductsAction implements IAction {
+  public readonly type = DefaultActionTypes.GET_PRODUCTS_REQUESTED;
+  constructor(
+    public payload: {
+      itemId: number
+    }
+  ) {}
+}
+
+export class GetTrendsAction implements IAction {
+  public readonly type = DefaultActionTypes.GET_TRENDS_REQUESTED;
+  constructor(
+  ) {}
+}
+
+export class GetTrendsSucceededAction implements IAction {
+  public readonly type = DefaultActionTypes.GET_TRENDS_SUCCEEDED;
+  constructor(
+    public payload: Array<object>
   ) {}
 }
