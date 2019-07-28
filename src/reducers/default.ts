@@ -15,7 +15,9 @@ import {
   AddUserAction,
   UserFactory,
   TodoFactory,
+  GetTrendsSucceededAction,
 } from '../actions/default';
+import { IProduct } from '../interfaces/Product';
 
 // import {
 //   Settings,
@@ -67,6 +69,7 @@ const INITIAL_STATE = fromJS({
       mutableMap.set(todo.get('id'), todo);
     })
   }),
+  trendProducts: {},
 });
 
 export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IAction) => {
@@ -120,6 +123,11 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
           }),
         );
       });
+    }
+    case DefaultActionTypes.GET_TRENDS_SUCCEEDED: {
+      const { payload } = action as GetTrendsSucceededAction;
+
+      return state.setIn(['trendProducts'], payload)
     }
     default:
       return state;

@@ -4,6 +4,7 @@ import {
 import {
   Record,
 } from 'immutable';
+import { IProduct } from '../interfaces/Product';
 
 export default {};
 
