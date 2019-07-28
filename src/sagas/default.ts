@@ -11,11 +11,13 @@ import {
   TodoFactory,
   GetProductsAction,
   GetTrendsAction,
+  GetTrendsSucceededAction,
 } from '../actions/default';
 import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import Qs from "qs";
 import { apiKey } from '../keys/keys';
+import { fromJS } from 'immutable';
 // import {
 //   fromJS,
 // } from 'immutable';
@@ -30,54 +32,17 @@ export default function* defaultSaga() {
   }
 }
 
-// function* getProducts(
-//   action: GetProductAction
-// ) {
-//   try {
-//     const data = yield call(fetchProduct, action.payload);
-//     const variants = data.get('variants');
-//     yield put(getProductSuccess(data));
-//     if (variants !== undefined) {
-//       yield put(getVariant(variants));
-//     } else {
-//       yield put(getVariantClear());
-//     }
-    
-//     // call reviews
-//     yield put(getReviews(action.payload));
-//   } catch(e) {
-//     yield put(getProductFailure(e));
-//   }
-  
-// }
-
-// const fetchTrends = () => {
-//   return axios.request<AxiosRequestConfig>({
-//     url: "https://proxy.hackeryou.com",
-//     method: "GET",
-//     // dataResponse: "json",
-//     paramsSerializer: function (params) {
-//       return Qs.stringify(params, { arrayFormat: "brackets" });
-//     },
-//     params: {
-//       reqUrl:
-//         "http://api.walmartlabs.com/v1/trends",
-//       params: {
-//         apiKey: apiKey
-//       },
-//       proxyHeaders: {
-//         headers_params: "value"
-//       },
-//       xmlToJSON: false
-//     }
-//   }).then(res => {
-//     return fromJS(res.data);
-//   });
-// }
-
 function* apiCallWaitingAction({...params}) {
+  return yield call(apiCall, {...params})
+}
+
+function* apiCall(params: any) {
+  const apiResp: {
+    data?: any;
+    error?: Error,
+  } = {};
   try {
-    return axios.request<AxiosRequestConfig>({
+  const resp: AxiosResponse = yield axios.request<AxiosRequestConfig>({
       url: "https://proxy.hackeryou.com",
       method: "GET",
       paramsSerializer: function (params) {
@@ -85,10 +50,14 @@ function* apiCallWaitingAction({...params}) {
       },
       ...params
     })
+
+    apiResp.data = resp;
   }
   catch (e) {
-    console.log(e)
+    apiResp.error = e;
   }
+
+  return apiResp;
 }
 
 function* fetchTrends(
@@ -96,7 +65,13 @@ function* fetchTrends(
 ) {
 
   console.log('fetchTrends saga')
-  const promise = yield call(apiCallWaitingAction, {
+  const {
+    data,
+    error,
+  }: {
+    data: any,
+    error: Error,
+  } = yield call(apiCallWaitingAction, {
     params: {
       reqUrl:
         "http://api.walmartlabs.com/v1/trends",
@@ -110,13 +85,16 @@ function* fetchTrends(
     }
   });
 
-  promise.then((result: AxiosResponse) => {
-    const data = result.data.items;
-
-
-    console.log(result.data.items)
-    return result.data;
-  })
+  if (data) {
+    const immutableData = fromJS(data.data);
+    const products = immutableData.get('items');
+    if (products == null) {
+      console.error('invalid response', data)
+    }
+    yield put(new GetTrendsSucceededAction(products))
+  } else {
+    console.error('get trends error', error)
+  }
 
 }
 

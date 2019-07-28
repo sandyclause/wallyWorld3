@@ -22,8 +22,6 @@ class HomePage extends React.Component<IHomePageType, {}> {
       dispatch,
     } = this.props;
 
-    console.log('mounted')
-
     dispatch(new GetTrendsAction())
   }
   
