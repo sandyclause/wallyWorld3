@@ -13,6 +13,7 @@ import {
   ITodo,
   IUser,
 } from '../actions/default';
+import { IProduct } from '../interfaces/Product';
 
 export const selectReducerState = () => (state: any) => {
   const reducerState = state.get('default');
@@ -40,6 +41,11 @@ export const makeSelectTodos = () => createSelector(
 export const makeSelectTodosForUser = (userId: number) => createSelector(
   makeSelectTodos(),
   (todos) => todos.filter(todo => todo.get('userId') === userId).toList() || List<Record<ITodo>>(),
+);
+
+export const makeSelectTrendProducts = () => createSelector(
+  selectReducerState(),
+  (state: Record<IReducerState>) => state.get('trendProducts') || List<Record<IProduct>>(),
 );
 
 export default {

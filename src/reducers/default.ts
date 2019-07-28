@@ -2,6 +2,7 @@ import {
   fromJS,
   Record,
   Map,
+  List,
 } from 'immutable';
 import {
   IAction,
@@ -28,6 +29,7 @@ export interface IReducerState {
   lastTodoId: number;
   users: Map<number, Record<IUser>>;
   todos: Map<number, Record<ITodo>>;
+  trendProducts: List<Record<IProduct>>;
 }
 
 const initialUsers = [
