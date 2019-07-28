@@ -22,56 +22,6 @@ export interface IUser {
   name: string;
 }
 
-export interface IImageEntity {
-  entityType: string;
-  largeImage: string;
-  mediumImage: string;
-  thumbnailImage: string;
-}
-
-export interface IProduct {
-  addToCartUrl: string;
-  affiliateAddToCartUrl: string;
-  attributes: object;
-  availableOnline: boolean;
-  brandName: string;
-  bundle: boolean;
-  categoryNode: string;
-  categoryPath: string;
-  clearance: boolean;
-  color: string;
-  customerRating: string;
-  customerRatingImage: string;
-  freeShipToStore: boolean;
-  freeShippingOver35Dollars: boolean;
-  giftOptions: object;
-  imageEntities: Record<IImageEntity>;
-  itemId: number;
-  largeImage: string;
-  marketplace: boolean;
-  mediumImage: string;
-  modelNumber: string;
-  msrp: number;
-  name: string;
-  ninetySevenCentShpping: boolean;
-  numReviews: number;
-  offerType: string;
-  parentItemId: number;
-  preOrder: boolean;
-  productTrackingUrl: string;
-  productUrl: string;
-  rhid: string;
-  salePrice: number;
-  shipToStore: boolean;
-  shortDescription: string;
-  size: string;
-  standardShipRate: number;
-  stock: string;
-  thumbnailImage: string;
-  upc: string;
-  variants: number[];
-}
-
 export const UserFactory = Record<IUser>({
   id: -1,
   name: '',
