@@ -5,6 +5,8 @@ import {
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
+import { Grid } from '@material-ui/core';
+import TrendsGroup from '../TrendsGroup';
 
 interface IHomePageComponentProps {
 
@@ -17,21 +19,22 @@ interface IHomePageProps {
 type IHomePageType = IHomePageComponentProps & IHomePageProps;
 
 class HomePage extends React.Component<IHomePageType, {}> {
-  componentDidMount() {
+  public componentDidMount() {
     const {
       dispatch,
     } = this.props;
 
-    dispatch(new GetTrendsAction())
+    // dispatch(new GetTrendsAction())
   }
   
-  render() {
+  public render() {
     return (
-      <div>
+      <Grid>
         <h1>
           test
         </h1>
-      </div>
+        <TrendsGroup />
+      </Grid>
     );
   }
 }
