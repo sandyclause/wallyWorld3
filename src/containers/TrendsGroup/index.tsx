@@ -14,6 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectTrendProducts } from '../../selectors/default';
 import { IProduct } from '../../interfaces/Product';
 import { Record, List } from 'immutable';
+import ProductCard from '../../components/ProductCard';
 
 interface ITrendsGroupComponentProps {
 
@@ -45,7 +46,14 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
     
     return (
       <Grid>
-        trends group
+        {
+          trendProducts && trendProducts.map((product: Record<IProduct>, index: number) => {
+            return  <ProductCard
+                      key={index}
+                      productData={product}
+                    />
+          }).valueSeq().toArray()
+        }
       </Grid>
     );
   }

@@ -5,10 +5,12 @@ import {
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import { IProduct } from '../../interfaces/Product';
+import { Record } from 'immutable';
 
 interface IProductCardComponentProps {
-
+  productData: Record<IProduct>;
 }
 
 interface IProductCardProps {
@@ -18,17 +20,38 @@ interface IProductCardProps {
 type IProductCardType = IProductCardComponentProps & IProductCardProps;
 
 class ProductCard extends React.Component<IProductCardType, {}> {
-  componentDidMount() {
+  public componentDidMount() {
     const {
       dispatch,
     } = this.props;
-
   }
+
   
-  render() {
+  public render() {
+    const {
+      productData,
+    } = this.props;
+
+    const mediumImage = productData.get('mediumImage') || '';
+    const shortDesc = productData.get('shortDescription') || '';
+    const customerRating = productData.get('customerRating') || '';
+    const msrp = productData.get('msrp') || '';
+    const salePrice = productData.get('salePrice') || '';
+
     return (
-      <Grid>
-        product Card
+      <Grid
+        container={true}
+        direction='column'
+        wrap='nowrap'
+      >
+        <Grid>
+          <img src={mediumImage} alt={shortDesc}/>
+        </Grid>
+        <Grid>
+          <Typography>{shortDesc}</Typography>
+          <Typography>{customerRating}</Typography>
+          <p>{msrp}</p>
+        </Grid>
       </Grid>
     );
   }
