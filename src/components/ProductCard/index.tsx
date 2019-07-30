@@ -36,14 +36,25 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     } = this.props;
 
     const mediumImage = productData.get('mediumImage') || '';
-    const shortDesc = productData.get('shortDescription') || '';
+    const name = productData.get('name') || '';
     const customerRating = productData.get('customerRating') || '';
     const msrp = productData.get('msrp') || '';
     const salePrice = productData.get('salePrice') || '';
 
-    const priceContainer = salePrice
-      ? <><Typography>{salePrice}</Typography><Typography className={classes.crossedPrice}>{msrp}</   Typography></>
-      : <><Typography>{msrp}</Typography></>;
+    const priceContainer = salePrice && msrp
+      ? <Grid
+          container={true}
+          direction='row'
+          wrap='nowrap'
+          justify='center'
+        >
+          <Typography className={classes.salePrice}>${salePrice}</Typography>
+          &nbsp;&nbsp;
+          <Typography className={classes.crossedPrice}>${msrp}</Typography>
+        </Grid>
+      : <Grid>
+      <Typography>${salePrice}</Typography>
+    </Grid>
 
     return (
       <Grid
@@ -52,10 +63,15 @@ class ProductCard extends React.Component<IProductCardType, {}> {
         wrap='nowrap'
       >
         <Grid>
-          <img src={mediumImage} alt={shortDesc}/>
+          <img src={mediumImage} alt={name}/>
         </Grid>
-        <Grid>
-          <Typography>{shortDesc}</Typography>
+        <Grid
+          className={classes.infoContainer}
+          container={true}
+          direction='column'
+          wrap='nowrap'
+        >
+          <Typography>{name}</Typography>
           <Typography>{customerRating}</Typography>
           {priceContainer}
         </Grid>
@@ -66,7 +82,14 @@ class ProductCard extends React.Component<IProductCardType, {}> {
 
 const styles = (theme: Theme): StyleRules => ({
   crossedPrice: {
-    textDecoration: 'line-through'
+    textDecoration: 'line-through',
+    fontSize: '1.2rem',
+  },
+  salePrice: {
+    fontWeight: 500,
+    fontSize: '1.2rem',
+  },
+  infoContainer: {
   }
 })
 
