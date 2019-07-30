@@ -19,6 +19,13 @@ interface IProductCardProps {
   dispatch: React.Dispatch<IAction>;
 }
 
+export const wordLimiter = (text: string, limit: number) => {
+
+  const limitedString = text.substring(0, limit);
+  const newString = limitedString.concat('...');
+  return newString;
+}
+
 type IProductCardType = IProductCardComponentProps & IProductCardProps & WithStyles<keyof ReturnType<typeof styles>>;
 
 class ProductCard extends React.Component<IProductCardType, {}> {
@@ -37,6 +44,8 @@ class ProductCard extends React.Component<IProductCardType, {}> {
 
     const mediumImage = productData.get('mediumImage') || '';
     const name = productData.get('name') || '';
+    const limitedName = wordLimiter(name, 100);
+
     const customerRating = productData.get('customerRating') || '';
     const msrp = productData.get('msrp') || '';
     const salePrice = productData.get('salePrice') || '';
@@ -73,7 +82,7 @@ class ProductCard extends React.Component<IProductCardType, {}> {
             direction='column'
             wrap='nowrap'
           >
-            <Typography>{name}</Typography>
+            <Typography>{limitedName}</Typography>
             <Typography>{customerRating}</Typography>
             {priceContainer}
           </Grid>
