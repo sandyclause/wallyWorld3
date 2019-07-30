@@ -45,7 +45,12 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
     console.log(trendProducts)
     
     return (
-      <Grid>
+      <Grid
+        container={true}
+        direction='row'
+        wrap='wrap'
+        justify='space-between'
+      >
         {
           trendProducts && trendProducts.map((product: Record<IProduct>, index: number) => {
             return  <ProductCard

@@ -5,7 +5,7 @@ import {
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
-import { Grid, Typography, withStyles, Theme } from '@material-ui/core';
+import { Grid, Typography, withStyles, Theme, Paper } from '@material-ui/core';
 import { IProduct } from '../../interfaces/Product';
 import { Record } from 'immutable';
 import { WithStyles } from '@material-ui/styles';
@@ -57,30 +57,38 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     </Grid>
 
     return (
-      <Grid
-        container={true}
-        direction='column'
-        wrap='nowrap'
-      >
-        <Grid>
-          <img src={mediumImage} alt={name}/>
-        </Grid>
+      <Paper>
         <Grid
-          className={classes.infoContainer}
+          className={classes.root}
           container={true}
           direction='column'
           wrap='nowrap'
         >
-          <Typography>{name}</Typography>
-          <Typography>{customerRating}</Typography>
-          {priceContainer}
+          <Grid>
+            <img src={mediumImage} alt={name}/>
+          </Grid>
+          <Grid
+            className={classes.infoContainer}
+            container={true}
+            direction='column'
+            wrap='nowrap'
+          >
+            <Typography>{name}</Typography>
+            <Typography>{customerRating}</Typography>
+            {priceContainer}
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     );
   }
 }
 
 const styles = (theme: Theme): StyleRules => ({
+  root: {
+    border: '1px solid red',
+    maxWidth: '240px',
+    cursor: 'pointer',
+  },
   crossedPrice: {
     textDecoration: 'line-through',
     fontSize: '1.2rem',
