@@ -5,7 +5,7 @@ import {
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
-import { Grid, Typography, withStyles, Theme, Paper } from '@material-ui/core';
+import { Grid, Typography, withStyles, Theme, Paper, Tooltip } from '@material-ui/core';
 import { IProduct } from '../../interfaces/Product';
 import { Record } from 'immutable';
 import { WithStyles } from '@material-ui/styles';
@@ -35,7 +35,6 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     } = this.props;
   }
 
-  
   public render() {
     const {
       classes,
@@ -44,7 +43,17 @@ class ProductCard extends React.Component<IProductCardType, {}> {
 
     const mediumImage = productData.get('mediumImage') || '';
     const name = productData.get('name') || '';
-    const limitedName = wordLimiter(name, 100);
+    const limitedName = wordLimiter(name, 80);
+    const nameComp = <Tooltip
+        className={classes.tooltipContainer}
+        classes={{
+          tooltip: classes.tooltip
+        }}
+        title={name}
+        placement='top'
+      >
+        <Typography>{limitedName}</Typography>
+      </Tooltip>
 
     const customerRating = productData.get('customerRating') || '';
     const msrp = productData.get('msrp') || '';
@@ -82,7 +91,7 @@ class ProductCard extends React.Component<IProductCardType, {}> {
             direction='column'
             wrap='nowrap'
           >
-            <Typography>{limitedName}</Typography>
+            {nameComp}
             <Typography>{customerRating}</Typography>
             {priceContainer}
           </Grid>
@@ -107,6 +116,12 @@ const styles = (theme: Theme): StyleRules => ({
     fontSize: '1.2rem',
   },
   infoContainer: {
+  },
+  tooltip: {
+    backgroundColor: theme.palette.grey[300],
+    color: theme.palette.common.black,
+  },
+  tooltipContainer: {
   }
 })
 
