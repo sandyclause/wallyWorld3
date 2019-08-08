@@ -8,6 +8,7 @@ import { Grid, withStyles, Theme, Input } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/styles';
 import walmartLogo from '../../images/walmartLogo.svg';
 import { push } from 'connected-react-router';
+import { GetSearchProduct } from '../../actions/default';
 
 interface IHeaderComponentProps {
 
@@ -42,7 +43,7 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
     } = this.props;
     e.preventDefault();
     const query = this.state.input;
-    // dispatch(getSearch(query));
+    dispatch(new GetSearchProduct({query}));
     dispatch(push(`/search/${query}`));
   }
 
@@ -55,7 +56,7 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
       <Grid className={classes.container}>
         <form onSubmit={this.handleSubmit}>
           <Input
-            placeholder="Placeholder"
+            placeholder="Search Product"
             className={classes.input}
             inputProps={{
               'aria-label': 'Description',

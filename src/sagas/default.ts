@@ -12,6 +12,7 @@ import {
   GetProductsAction,
   GetTrendsAction,
   GetTrendsSucceededAction,
+  GetSearchProduct,
 } from '../actions/default';
 import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -24,7 +25,8 @@ import { fromJS } from 'immutable';
 
 export default function* defaultSaga() {
   // takeLatest(DefaultActionTypes.GET_PRODUCTS_REQUESTED, getProducts),
-  yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, fetchTrends);
+  yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, searchTrends);
+  yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED, searchProducts);
   yield takeEvery(DefaultActionTypes.ADD_TODO, addTodo);
   while (true) {
     console.debug('saga running');
@@ -60,11 +62,56 @@ function* apiCall(params: any) {
   return apiResp;
 }
 
-function* fetchTrends(
+function* searchProducts(
+  action: GetSearchProduct,
+) {
+
+  const {
+    payload
+  } = action;
+  const {
+    query
+  } = payload;
+
+  const {
+    data,
+    error,
+  }: {
+    data: any,
+    error: Error,
+  } = yield call(apiCallWaitingAction, {
+    params: {
+      reqUrl:
+        "http://api.walmartlabs.com/v1/search",
+      params: {
+        apiKey: apiKey,
+        query: query,
+      },
+      proxyHeaders: {
+        headers_params: "value"
+      },
+      xmlToJSON: false
+    }
+  });
+
+  if (data) {
+
+    console.log(data)
+    // const immutableData = fromJS(data.data);
+    // const products = immutableData.get('items');
+    // if (products == null) {
+    //   console.error('invalid response', data)
+    // }
+    // yield put(new GetTrendsSucceededAction(products))
+  } else {
+    console.error('get products error', error)
+  }
+}
+
+function* searchTrends(
   action: GetTrendsAction,
 ) {
 
-  console.log('fetchTrends saga')
   const {
     data,
     error,
@@ -95,7 +142,6 @@ function* fetchTrends(
   } else {
     console.error('get trends error', error)
   }
-
 }
 
 

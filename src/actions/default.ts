@@ -16,6 +16,7 @@ export enum DefaultActionTypes {
   GET_TRENDS_REQUESTED = 'GET_TRENDS_REQUESTED',
   GET_TRENDS_SUCCEEDED = 'GET_TRENDS_SUCCEEDED',
   GET_TRENDS_FAILED = 'GET_TRENDS_FAILED',
+  GET_SEARCH_PRODUCT_REQUESTED = 'GET_SEARCH_PRODUCT_REQUESTED',
 }
 
 export interface IUser {
@@ -88,5 +89,14 @@ export class GetTrendsSucceededAction implements IAction {
   public readonly type = DefaultActionTypes.GET_TRENDS_SUCCEEDED;
   constructor(
     public payload: Array<Record<IProduct>>
+  ) {}
+}
+
+export class GetSearchProduct implements IAction {
+  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED;
+  constructor(
+    public payload: {
+      query: string
+    }
   ) {}
 }

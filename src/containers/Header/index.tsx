@@ -8,6 +8,7 @@ import { Grid, withStyles, Theme } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/styles';
 import walmartLogo from '../../images/walmartLogo.svg';
 import { push } from 'connected-react-router';
+import SearchBar from '../../components/SearchBar';
 
 interface IHeaderComponentProps {
 
@@ -49,7 +50,7 @@ class Header extends React.Component<IHeaderType, {}> {
           wrap='nowrap'
         >
           {logo}
-          {/* <SearchBar /> */}
+          <SearchBar />
         </Grid>
       </Grid>
     );
