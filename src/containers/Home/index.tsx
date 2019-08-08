@@ -7,6 +7,7 @@ import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
 import { Grid } from '@material-ui/core';
 import TrendsGroup from '../TrendsGroup';
+import Layout from '../Layout';
 
 interface IHomePageComponentProps {
 
@@ -29,12 +30,14 @@ class HomePage extends React.Component<IHomePageType, {}> {
   
   public render() {
     return (
-      <Grid>
-        <h1>
-          test
-        </h1>
-        <TrendsGroup />
-      </Grid>
+      <Layout>
+        <Grid>
+          <h1>
+            test
+          </h1>
+          <TrendsGroup />
+        </Grid>
+      </Layout>
     );
   }
 }
