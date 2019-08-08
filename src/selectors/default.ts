@@ -48,6 +48,11 @@ export const makeSelectTrendProducts = () => createSelector(
   (state: Record<IReducerState>) => state.get('trendProducts') || List<Record<IProduct>>(),
 );
 
+export const makeSelectSearchResults = () => createSelector(
+  selectReducerState(),
+  (state: Record<IReducerState>) => state.get('searchProducts') || List<Record<IProduct>>(),
+);
+
 export default {
   selectReducerState,
 };

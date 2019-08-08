@@ -2,7 +2,7 @@ import {
   IAction,
 } from '../Interfaces';
 import {
-  Record,
+  Record, List,
 } from 'immutable';
 import { IProduct } from '../interfaces/Product';
 
@@ -17,6 +17,7 @@ export enum DefaultActionTypes {
   GET_TRENDS_SUCCEEDED = 'GET_TRENDS_SUCCEEDED',
   GET_TRENDS_FAILED = 'GET_TRENDS_FAILED',
   GET_SEARCH_PRODUCT_REQUESTED = 'GET_SEARCH_PRODUCT_REQUESTED',
+  GET_SEARCH_PRODUCT_SUCCEEDED = 'GET_SEARCH_PRODUCT_SUCCEEDED',
 }
 
 export interface IUser {
@@ -88,7 +89,7 @@ export class GetTrendsAction implements IAction {
 export class GetTrendsSucceededAction implements IAction {
   public readonly type = DefaultActionTypes.GET_TRENDS_SUCCEEDED;
   constructor(
-    public payload: Array<Record<IProduct>>
+    public payload: List<Record<IProduct>>
   ) {}
 }
 
@@ -98,5 +99,12 @@ export class GetSearchProduct implements IAction {
     public payload: {
       query: string
     }
+  ) {}
+}
+
+export class GetSearchProductSucceeded implements IAction {
+  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED;
+  constructor(
+    public payload: List<Record<IProduct>>
   ) {}
 }

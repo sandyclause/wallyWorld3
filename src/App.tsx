@@ -24,6 +24,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import ResultsContainer from './containers/ResultsContainer';
 
 const basename = '/';
 
@@ -90,6 +91,7 @@ const App: React.FC = () => {
             <Route path={'/todo'} exact={true} component={Todo} />
             <Route path={'/todo/:userId?'} component={TodoUser} />
             <Route path={'/'} exact={true} component={Home} />
+            <Route path="/search/:query" component={ResultsContainer} />
             <Route component={() => <Typography>404</Typography>} />
           </Switch>
         </div>

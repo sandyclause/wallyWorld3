@@ -13,6 +13,7 @@ import {
   GetTrendsAction,
   GetTrendsSucceededAction,
   GetSearchProduct,
+  GetSearchProductSucceeded,
 } from '../actions/default';
 import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -97,12 +98,12 @@ function* searchProducts(
   if (data) {
 
     console.log(data)
-    // const immutableData = fromJS(data.data);
-    // const products = immutableData.get('items');
-    // if (products == null) {
-    //   console.error('invalid response', data)
-    // }
-    // yield put(new GetTrendsSucceededAction(products))
+    const immutableData = fromJS(data.data);
+    const products = immutableData.get('items');
+    if (products == null) {
+      console.error('invalid response', data)
+    }
+    yield put(new GetSearchProductSucceeded(products))
   } else {
     console.error('get products error', error)
   }
