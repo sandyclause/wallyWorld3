@@ -13,6 +13,7 @@ export enum DefaultActionTypes {
   ADD_TODO = 'ADD_TODO',
   ADD_CAT_FACT = 'ADD_CAT_FACT',
   GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED',
+  GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED',
   GET_TRENDS_REQUESTED = 'GET_TRENDS_REQUESTED',
   GET_TRENDS_SUCCEEDED = 'GET_TRENDS_SUCCEEDED',
   GET_TRENDS_FAILED = 'GET_TRENDS_FAILED',
@@ -77,6 +78,13 @@ export class GetProductsAction implements IAction {
     public payload: {
       itemId: number
     }
+  ) {}
+}
+
+export class GetProductsSucceeded implements IAction {
+  public readonly type = DefaultActionTypes.GET_PRODUCTS_SUCCEEDED;
+  constructor(
+    public payload: List<Record<IProduct>>
   ) {}
 }
 

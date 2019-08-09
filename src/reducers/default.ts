@@ -18,6 +18,7 @@ import {
   TodoFactory,
   GetTrendsSucceededAction,
   GetSearchProductSucceeded,
+  GetProductsSucceeded,
 } from '../actions/default';
 import { IProduct } from '../interfaces/Product';
 
@@ -32,6 +33,7 @@ export interface IReducerState {
   todos: Map<number, Record<ITodo>>;
   trendProducts: List<Record<IProduct>>;
   searchProducts: List<Record<IProduct>>;
+  products: Map<number, Record<IProduct>>;
 }
 
 const initialUsers = [
@@ -75,6 +77,7 @@ const INITIAL_STATE = fromJS({
   }),
   trendProducts: {},
   searchProducts: {},
+  products: {},
 });
 
 export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IAction) => {
@@ -136,8 +139,29 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
     }
     case DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED: {
       const { payload } = action as GetSearchProductSucceeded;
-      
+
       return state.setIn(['searchProducts'], payload)
+    }
+    case DefaultActionTypes.GET_PRODUCTS_SUCCEEDED: {
+      const {
+        payload: productsResponse
+      } = action as GetProductsSucceeded;
+
+      console.log(productsResponse)
+      
+      return state.update(
+        'products',
+        (stateProducts: Map<number, Record<IProduct>>) => {
+          console.log(stateProducts)
+          return productsResponse.reduce(
+            (acc: Map<number, Record<IProduct>>, product: Record<IProduct>) => {
+              return acc.set(product.get('itemId'), product)
+            },
+            stateProducts
+          );
+        }
+      )
+
     }
     default:
       return state;

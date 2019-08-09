@@ -14,6 +14,7 @@ import {
   GetTrendsSucceededAction,
   GetSearchProduct,
   GetSearchProductSucceeded,
+  GetProductsSucceeded,
 } from '../actions/default';
 import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -103,7 +104,9 @@ function* searchProducts(
     if (products == null) {
       console.error('invalid response', data)
     }
-    yield put(new GetSearchProductSucceeded(products))
+    yield put(new GetProductsSucceeded(products));
+
+    // yield put(new GetSearchProductSucceeded(products))
   } else {
     console.error('get products error', error)
   }
