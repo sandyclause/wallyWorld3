@@ -32,7 +32,7 @@ export interface IReducerState {
   users: Map<number, Record<IUser>>;
   todos: Map<number, Record<ITodo>>;
   trendProducts: List<Record<IProduct>>;
-  searchProducts: List<Record<IProduct>>;
+  searchProducts: List<number>;
   products: Map<number, Record<IProduct>>;
 }
 
@@ -76,7 +76,7 @@ const INITIAL_STATE = fromJS({
     })
   }),
   trendProducts: {},
-  searchProducts: {},
+  searchProducts: [],
   products: {},
 });
 
@@ -146,7 +146,6 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
         return acc.push(product.get('itemId'));
       }, List());
 
-      console.log(productIds)
       return state.setIn(['searchProducts'], productIds)
     }
     case DefaultActionTypes.GET_PRODUCTS_SUCCEEDED: {

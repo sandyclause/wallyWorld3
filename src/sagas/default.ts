@@ -105,7 +105,6 @@ function* searchProducts(
       console.error('invalid response', data)
     }
     yield put(new GetProductsSucceeded(products));
-
     yield put(new GetSearchProductSucceeded(products))
   } else {
     console.error('get products error', error)

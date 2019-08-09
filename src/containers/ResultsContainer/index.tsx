@@ -32,9 +32,7 @@ class ResultsContainer extends React.Component<IResultsContainerType, {}> {
     const {
       searchData,
     } = this.props;
-    
-    console.log(searchData)
-    
+
     return (
       <Grid
         container={true}

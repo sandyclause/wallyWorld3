@@ -14,6 +14,7 @@ import {
   IUser,
 } from '../actions/default';
 import { IProduct } from '../interfaces/Product';
+import { number } from 'prop-types';
 
 export const selectReducerState = () => (state: any) => {
   const reducerState = state.get('default');
@@ -48,9 +49,44 @@ export const makeSelectTrendProducts = () => createSelector(
   (state: Record<IReducerState>) => state.get('trendProducts') || List<Record<IProduct>>(),
 );
 
-export const makeSelectSearchResults = () => createSelector(
+export const makeSelectSelectedSearchProductsIds = () => createSelector(
   selectReducerState(),
-  (state: Record<IReducerState>) => state.get('searchProducts') || List<Record<IProduct>>(),
+  (state: Record<IReducerState>) => state.get('searchProducts') || List<number>(),
+);
+
+export const makeSelectProducts = () => createSelector(
+  selectReducerState(),
+  (state: Record<IReducerState>) => state.get('products') || Map<number, Record<IProduct>>(),
+);
+
+export const makeSelectSearchResults = () => createSelector(
+  makeSelectProducts(),
+  makeSelectSelectedSearchProductsIds(),
+  (products: Map<number, Record<IProduct>>, productIds: List<number>) => {
+    console.log(products, productIds)
+
+    // const productsMap = products.withMutations((ctx) => {
+    //   productIds.forEach((productId: number) => {
+    //     if (products.get(productId) != null) {
+    //       return products.get(productId)
+    //     } else {
+    //       return;
+    //     }
+    //   });
+    // });
+    // return productsMap;
+
+    // const productsMap = products.map((product: Record<IProduct>) => {
+    //   return productIds.includes(product.get('itemId')) ? product : null;
+    // })
+
+    const productsMap = productIds.map((productId: number) => {
+      return products.get(productId) ? products.get(productId) : null
+    })
+
+    console.log(productsMap)
+    return productsMap;
+  }
 );
 
 export default {
