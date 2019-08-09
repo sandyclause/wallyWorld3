@@ -106,7 +106,7 @@ function* searchProducts(
     }
     yield put(new GetProductsSucceeded(products));
 
-    // yield put(new GetSearchProductSucceeded(products))
+    yield put(new GetSearchProductSucceeded(products))
   } else {
     console.error('get products error', error)
   }

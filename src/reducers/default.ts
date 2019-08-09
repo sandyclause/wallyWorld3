@@ -138,9 +138,16 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
       return state.setIn(['trendProducts'], payload)
     }
     case DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED: {
-      const { payload } = action as GetSearchProductSucceeded;
+      const {
+        payload: productsResponse
+      } = action as GetSearchProductSucceeded;
 
-      return state.setIn(['searchProducts'], payload)
+      const productIds = productsResponse.reduce((acc: List<number>, product: Record<IProduct>) => {
+        return acc.push(product.get('itemId'));
+      }, List());
+
+      console.log(productIds)
+      return state.setIn(['searchProducts'], productIds)
     }
     case DefaultActionTypes.GET_PRODUCTS_SUCCEEDED: {
       const {
