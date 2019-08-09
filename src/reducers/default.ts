@@ -134,9 +134,9 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
 
       return state.setIn(['trendProducts'], payload)
     }
-    case DefaultActionTypes.GET_TRENDS_SUCCEEDED: {
+    case DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED: {
       const { payload } = action as GetSearchProductSucceeded;
-
+      
       return state.setIn(['searchProducts'], payload)
     }
     default:
