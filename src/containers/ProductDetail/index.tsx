@@ -65,7 +65,8 @@ const mapStateToProps = (state: any, props: IProductDetailComponentProps) => {
     match,
   } = props;
 
-  const routerProductId = getIn(match, ['params', 'routerProductId'], -1);
+  console.log(match)
+  const routerProductId = getIn(match, ['params', 'productId'], -1);
 
   return {
     routerProductId,

@@ -17,7 +17,7 @@ export enum DefaultActionTypes {
   GET_SEARCH_PRODUCT_REQUESTED = 'GET_SEARCH_PRODUCT_REQUESTED',
   GET_SEARCH_PRODUCT_SUCCEEDED = 'GET_SEARCH_PRODUCT_SUCCEEDED',
   GET_SEARCH_PRODUCTS_REQUESTED = 'GET_SEARCH_PRODUCTS_REQUESTED',
-  GET_SEARCH_PRODUCTS_SUCCEEDED = 'GET_SEARCH_PRODUCTS_SUCCEEDED',
+  SELECT_PRODUCT_IDS = 'SELECT_PRODUCT_IDS',
   SELECT_PRODUCT = 'SELECT_PRODUCT',
 }
 
@@ -59,8 +59,8 @@ export class GetSearchProducts implements IAction {
   ) {}
 }
 
-export class GetSearchProductsSucceeded implements IAction {
-  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCTS_SUCCEEDED;
+export class MakeSelectProductIdsAction implements IAction {
+  public readonly type = DefaultActionTypes.SELECT_PRODUCT_IDS;
   constructor(
     public payload: List<Record<IProduct>>
   ) {}

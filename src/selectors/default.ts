@@ -24,7 +24,7 @@ export const makeSelectTrendProducts = () => createSelector(
   (state: Record<IReducerState>) => state.get('trendProducts') || List<Record<IProduct>>(),
 );
 
-export const makeSelectSelectedSearchProductsIds = () => createSelector(
+export const makeSelectSelectedProductIds = () => createSelector(
   selectReducerState(),
   (state: Record<IReducerState>) => state.get('searchProducts') || List<number>(),
 );
@@ -36,7 +36,7 @@ export const makeSelectProducts = () => createSelector(
 
 export const makeSelectSearchResults = () => createSelector(
   makeSelectProducts(),
-  makeSelectSelectedSearchProductsIds(),
+  makeSelectSelectedProductIds(),
   (products: Map<number, Record<IProduct>>, productIds: List<number>) => {
 
     const productsMap = productIds.map((productId: number) => {

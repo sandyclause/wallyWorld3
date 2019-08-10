@@ -41,8 +41,6 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
     const {
       trendProducts
     } = this.props;
-
-    console.log(trendProducts)
     
     return (
       <Grid

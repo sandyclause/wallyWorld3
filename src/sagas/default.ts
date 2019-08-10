@@ -10,7 +10,7 @@ import {
   GetTrendsAction,
   GetTrendsSucceededAction,
   GetSearchProducts,
-  GetSearchProductsSucceeded,
+  MakeSelectProductIdsAction,
   GetProductsSucceeded,
   GetSearchProduct,
 } from '../actions/default';
@@ -95,7 +95,7 @@ function* searchProduct(
       console.error('invalid response', data)
     }
     // yield put(new GetProductsSucceeded(product));
-    // yield put(new GetSearchProductsSucceeded(product))
+    // yield put(new MakeSelectProductIdsAction(product))
   } else {
     console.error('get products error', error)
   }
@@ -134,14 +134,13 @@ function* searchProducts(
   });
 
   if (data) {
-    console.log('search', data)
     const immutableData = fromJS(data.data);
     const products = immutableData.get('items');
     if (products == null) {
       console.error('invalid response', data)
     }
     yield put(new GetProductsSucceeded(products));
-    yield put(new GetSearchProductsSucceeded(products))
+    yield put(new MakeSelectProductIdsAction(products))
   } else {
     console.error('get products error', error)
   }

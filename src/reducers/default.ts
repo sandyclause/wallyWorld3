@@ -11,7 +11,7 @@ import {
 import {
   DefaultActionTypes,
   GetTrendsSucceededAction,
-  GetSearchProductsSucceeded,
+  MakeSelectProductIdsAction,
   GetProductsSucceeded,
   SelectProductAction,
 } from '../actions/default';
@@ -38,10 +38,10 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
 
       return state.setIn(['trendProducts'], payload)
     }
-    case DefaultActionTypes.GET_SEARCH_PRODUCTS_SUCCEEDED: {
+    case DefaultActionTypes.SELECT_PRODUCT_IDS: {
       const {
         payload: productsResponse
-      } = action as GetSearchProductsSucceeded;
+      } = action as MakeSelectProductIdsAction;
 
       const productIds = productsResponse.reduce((acc: List<number>, product: Record<IProduct>) => {
         return acc.push(product.get('itemId'));
