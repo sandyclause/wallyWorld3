@@ -17,7 +17,8 @@ import {
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import Qs from "qs";
 import { apiKey } from '../keys/keys';
-import { fromJS } from 'immutable';
+import { fromJS, Record, List } from 'immutable';
+import { IProduct } from '../interfaces/Product';
 
 export default function* defaultSaga() {
   yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, searchTrends);
@@ -90,12 +91,12 @@ function* searchProduct(
 
   if (data) {
     console.log(data)
-    const immutableData = fromJS(data.data);
-    if (immutableData == null) {
+    const immutableProduct: Record<IProduct> = fromJS(data.data);
+    const productList: List<Record<IProduct>> = List().push(immutableProduct);
+    if (immutableProduct == null) {
       console.error('invalid response', data)
     }
-    // yield put(new GetProductsSucceeded(product));
-    // yield put(new MakeSelectProductIdsAction(product))
+    yield put(new GetProductsSucceeded(productList));
   } else {
     console.error('get products error', error)
   }
