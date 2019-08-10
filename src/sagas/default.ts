@@ -12,9 +12,10 @@ import {
   GetProductsAction,
   GetTrendsAction,
   GetTrendsSucceededAction,
-  GetSearchProduct,
-  GetSearchProductSucceeded,
+  GetSearchProducts,
+  GetSearchProductsSucceeded,
   GetProductsSucceeded,
+  GetSearchProduct,
 } from '../actions/default';
 import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -28,7 +29,8 @@ import { fromJS } from 'immutable';
 export default function* defaultSaga() {
   // takeLatest(DefaultActionTypes.GET_PRODUCTS_REQUESTED, getProducts),
   yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, searchTrends);
-  yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED, searchProducts);
+  yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCTS_REQUESTED, searchProducts);
+  yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED, searchProduct);
   yield takeEvery(DefaultActionTypes.ADD_TODO, addTodo);
   while (true) {
     console.debug('saga running');
@@ -64,8 +66,52 @@ function* apiCall(params: any) {
   return apiResp;
 }
 
-function* searchProducts(
+function* searchProduct(
   action: GetSearchProduct,
+) {
+
+  const {
+    payload
+  } = action;
+  const {
+    productId
+  } = payload;
+
+  const {
+    data,
+    error,
+  }: {
+    data: any,
+    error: Error,
+  } = yield call(apiCallWaitingAction, {
+    params: {
+      reqUrl:
+      `http://api.walmartlabs.com/v1/items/${productId}`,
+      params: {
+        apiKey: apiKey,
+      },
+      proxyHeaders: {
+        headers_params: "value"
+      },
+      xmlToJSON: false
+    }
+  });
+
+  if (data) {
+    console.log(data)
+    const immutableData = fromJS(data.data);
+    if (immutableData == null) {
+      console.error('invalid response', data)
+    }
+    // yield put(new GetProductsSucceeded(product));
+    // yield put(new GetSearchProductsSucceeded(product))
+  } else {
+    console.error('get products error', error)
+  }
+}
+
+function* searchProducts(
+  action: GetSearchProducts,
 ) {
 
   const {
@@ -98,14 +144,13 @@ function* searchProducts(
 
   if (data) {
 
-    console.log(data)
     const immutableData = fromJS(data.data);
     const products = immutableData.get('items');
     if (products == null) {
       console.error('invalid response', data)
     }
     yield put(new GetProductsSucceeded(products));
-    yield put(new GetSearchProductSucceeded(products))
+    yield put(new GetSearchProductsSucceeded(products))
   } else {
     console.error('get products error', error)
   }
@@ -146,8 +191,6 @@ function* searchTrends(
     console.error('get trends error', error)
   }
 }
-
-
 
 function* addTodo(
   action: AddTodoAction,

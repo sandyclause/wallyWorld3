@@ -19,6 +19,8 @@ export enum DefaultActionTypes {
   GET_TRENDS_FAILED = 'GET_TRENDS_FAILED',
   GET_SEARCH_PRODUCT_REQUESTED = 'GET_SEARCH_PRODUCT_REQUESTED',
   GET_SEARCH_PRODUCT_SUCCEEDED = 'GET_SEARCH_PRODUCT_SUCCEEDED',
+  GET_SEARCH_PRODUCTS_REQUESTED = 'GET_SEARCH_PRODUCTS_REQUESTED',
+  GET_SEARCH_PRODUCTS_SUCCEEDED = 'GET_SEARCH_PRODUCTS_SUCCEEDED',
 }
 
 export interface IUser {
@@ -101,8 +103,8 @@ export class GetTrendsSucceededAction implements IAction {
   ) {}
 }
 
-export class GetSearchProduct implements IAction {
-  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED;
+export class GetSearchProducts implements IAction {
+  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCTS_REQUESTED;
   constructor(
     public payload: {
       query: string
@@ -110,9 +112,25 @@ export class GetSearchProduct implements IAction {
   ) {}
 }
 
-export class GetSearchProductSucceeded implements IAction {
-  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED;
+export class GetSearchProductsSucceeded implements IAction {
+  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCTS_SUCCEEDED;
   constructor(
     public payload: List<Record<IProduct>>
   ) {}
 }
+
+export class GetSearchProduct implements IAction {
+  public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED;
+  constructor(
+    public payload: {
+      productId: number
+    }
+  ) {}
+}
+
+// export class GetSearchProductSucceeded implements IAction {
+//   public readonly type = DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED;
+//   constructor(
+//     public payload: List<Record<IProduct>>
+//   ) {}
+// }

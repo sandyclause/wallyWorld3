@@ -8,7 +8,7 @@ import { Grid, withStyles, Theme, Input } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/styles';
 import walmartLogo from '../../images/walmartLogo.svg';
 import { push } from 'connected-react-router';
-import { GetSearchProduct } from '../../actions/default';
+import { GetSearchProducts } from '../../actions/default';
 
 interface IHeaderComponentProps {
 
@@ -43,7 +43,7 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
     } = this.props;
     e.preventDefault();
     const query = this.state.input;
-    dispatch(new GetSearchProduct({query}));
+    dispatch(new GetSearchProducts({query}));
     dispatch(push(`/search/${query}`));
   }
 

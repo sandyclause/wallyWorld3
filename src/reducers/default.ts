@@ -17,7 +17,7 @@ import {
   UserFactory,
   TodoFactory,
   GetTrendsSucceededAction,
-  GetSearchProductSucceeded,
+  GetSearchProductsSucceeded,
   GetProductsSucceeded,
 } from '../actions/default';
 import { IProduct } from '../interfaces/Product';
@@ -140,7 +140,7 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
     case DefaultActionTypes.GET_SEARCH_PRODUCT_SUCCEEDED: {
       const {
         payload: productsResponse
-      } = action as GetSearchProductSucceeded;
+      } = action as GetSearchProductsSucceeded;
 
       const productIds = productsResponse.reduce((acc: List<number>, product: Record<IProduct>) => {
         return acc.push(product.get('itemId'));
