@@ -143,7 +143,7 @@ function* searchProducts(
   });
 
   if (data) {
-
+    console.log('search', data)
     const immutableData = fromJS(data.data);
     const products = immutableData.get('items');
     if (products == null) {
