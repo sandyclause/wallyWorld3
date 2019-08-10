@@ -25,6 +25,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import ResultsContainer from './containers/ResultsContainer';
+import ProductDetail from './containers/ProductDetail';
 
 const basename = '/';
 
@@ -92,6 +93,7 @@ const App: React.FC = () => {
             <Route path={'/todo/:userId?'} component={TodoUser} />
             <Route path={'/'} exact={true} component={Home} />
             <Route path="/search/:query" component={ResultsContainer} />
+            <Route path="/productDetail/:productId" component={ProductDetail} />
             <Route component={() => <Typography>404</Typography>} />
           </Switch>
         </div>

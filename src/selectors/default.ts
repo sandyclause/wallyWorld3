@@ -63,28 +63,11 @@ export const makeSelectSearchResults = () => createSelector(
   makeSelectProducts(),
   makeSelectSelectedSearchProductsIds(),
   (products: Map<number, Record<IProduct>>, productIds: List<number>) => {
-    console.log(products, productIds)
-
-    // const productsMap = products.withMutations((ctx) => {
-    //   productIds.forEach((productId: number) => {
-    //     if (products.get(productId) != null) {
-    //       return products.get(productId)
-    //     } else {
-    //       return;
-    //     }
-    //   });
-    // });
-    // return productsMap;
-
-    // const productsMap = products.map((product: Record<IProduct>) => {
-    //   return productIds.includes(product.get('itemId')) ? product : null;
-    // })
 
     const productsMap = productIds.map((productId: number) => {
       return products.get(productId) ? products.get(productId) : null
     })
 
-    console.log(productsMap)
     return productsMap;
   }
 );

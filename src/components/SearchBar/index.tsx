@@ -14,7 +14,7 @@ interface IHeaderComponentProps {
 
 }
 
-interface IHeaderProps {
+interface IHeaderProps extends IHeaderComponentProps {
   dispatch: React.Dispatch<IAction>;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLInputElement>) => void;

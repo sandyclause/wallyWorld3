@@ -13,7 +13,7 @@ interface IHomePageComponentProps {
 
 }
 
-interface IHomePageProps {
+interface IHomePageProps extends IHomePageComponentProps {
   dispatch: React.Dispatch<IAction>;
 }
 

@@ -19,7 +19,7 @@ interface IResultsContainerComponentProps {
 
 }
 
-interface IResultsContainerProps {
+interface IResultsContainerProps extends IResultsContainerComponentProps {
   dispatch: React.Dispatch<IAction>;
   searchData: List<Record<IProduct>>;
 }
