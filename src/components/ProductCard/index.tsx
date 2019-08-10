@@ -10,6 +10,7 @@ import { IProduct } from '../../interfaces/Product';
 import { Record } from 'immutable';
 import { WithStyles } from '@material-ui/styles';
 import { StyleRules } from '@material-ui/core/styles';
+import { push } from 'connected-react-router';
 
 interface IProductCardComponentProps {
   productData: Record<IProduct>;
@@ -17,6 +18,7 @@ interface IProductCardComponentProps {
 
 interface IProductCardProps {
   dispatch: React.Dispatch<IAction>;
+  handleclick: () => void;
 }
 
 export const wordLimiter = (text: string, limit: number) => {
@@ -33,6 +35,17 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     const {
       dispatch,
     } = this.props;
+  }
+
+  public handleClick = () => {
+    const {
+      dispatch,
+      productData,
+    } = this.props;
+
+    const productId = productData.get('itemId');
+
+    dispatch(push(`/productDetail/${productId}`));
   }
 
   public render() {
@@ -75,7 +88,9 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     </Grid>
 
     return (
-      <Paper>
+      <Paper
+        onClick={this.handleClick}
+      >
         <Grid
           className={classes.root}
           container={true}
