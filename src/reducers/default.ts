@@ -53,13 +53,10 @@ export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IA
       const {
         payload: productsResponse
       } = action as GetProductsSucceeded;
-
-      console.log(productsResponse)
       
       return state.update(
         'products',
         (stateProducts: Map<number, Record<IProduct>>) => {
-          console.log(stateProducts)
           return productsResponse.reduce(
             (acc: Map<number, Record<IProduct>>, product: Record<IProduct>) => {
               return acc.set(product.get('itemId'), product)

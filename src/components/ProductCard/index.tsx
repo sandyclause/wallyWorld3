@@ -4,7 +4,7 @@ import {
 } from 'react-redux';
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
-import { GetTrendsAction } from '../../actions/default';
+import { GetTrendsAction, SelectProductAction } from '../../actions/default';
 import { Grid, Typography, withStyles, Theme, Paper, Tooltip } from '@material-ui/core';
 import { IProduct } from '../../interfaces/Product';
 import { Record } from 'immutable';
@@ -44,7 +44,7 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     } = this.props;
 
     const productId = productData.get('itemId');
-
+    dispatch( new SelectProductAction({productId}));
     dispatch(push(`/productDetail/${productId}`));
   }
 

@@ -90,7 +90,6 @@ function* searchProduct(
   });
 
   if (data) {
-    console.log(data)
     const immutableProduct: Record<IProduct> = fromJS(data.data);
     const productList: List<Record<IProduct>> = List().push(immutableProduct);
     if (immutableProduct == null) {

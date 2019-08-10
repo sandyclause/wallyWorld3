@@ -52,6 +52,15 @@ export const makeSelectSelectedProductId = () => createSelector(
   (state: Record<IReducerState>) => state.get('selectedProductId'),
 );
 
+export const makeSelectProduct = () => createSelector(
+  makeSelectProducts(),
+  makeSelectSelectedProductId(),
+  (products: Map<number, Record<IProduct>>, productId: number) => {
+
+    return products.get(productId) || Map();
+  }
+);
+
 export default {
   selectReducerState,
 };
