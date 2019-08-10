@@ -7,9 +7,6 @@ import {
 } from 'redux-saga/effects';
 import {
   DefaultActionTypes,
-  AddTodoAction,
-  TodoFactory,
-  GetProductsAction,
   GetTrendsAction,
   GetTrendsSucceededAction,
   GetSearchProducts,
@@ -17,21 +14,15 @@ import {
   GetProductsSucceeded,
   GetSearchProduct,
 } from '../actions/default';
-import request from '../utils';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import Qs from "qs";
 import { apiKey } from '../keys/keys';
 import { fromJS } from 'immutable';
-// import {
-//   fromJS,
-// } from 'immutable';
 
 export default function* defaultSaga() {
-  // takeLatest(DefaultActionTypes.GET_PRODUCTS_REQUESTED, getProducts),
   yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, searchTrends);
   yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCTS_REQUESTED, searchProducts);
   yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED, searchProduct);
-  yield takeEvery(DefaultActionTypes.ADD_TODO, addTodo);
   while (true) {
     console.debug('saga running');
     yield delay(10000);
@@ -189,42 +180,5 @@ function* searchTrends(
     yield put(new GetTrendsSucceededAction(products))
   } else {
     console.error('get trends error', error)
-  }
-}
-
-function* addTodo(
-  action: AddTodoAction,
-) {
-  const {
-    payload,
-  } = action;
-  const {
-    userId,
-    todo,
-  } = payload;
-
-  if (todo.get('title') !== '') {
-    console.debug('add todo normally');
-    return;
-  }
-  const response: {
-    quote: string;
-  } = yield call(request,
-    'https://api.kanye.rest',
-    {
-      // mode: 'no-cors',
-    }
-  );
-  if (response != null) {
-    const {
-      quote,
-    } = response;
-
-    yield put(new AddTodoAction({
-      userId,
-      todo: TodoFactory({
-        title: quote,
-      })
-    }))
   }
 }

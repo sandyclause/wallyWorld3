@@ -12,15 +12,17 @@ import {
   Record,
   List,
 } from 'immutable';
-import { GetSearchProduct } from '../../actions/default';
+import { GetSearchProduct, SelectProductAction } from '../../actions/default';
+import { makeSelectSelectedProductId } from '../../selectors/default';
 
 interface IProductDetailComponentProps {
   match: IMatch;
 }
 
 interface IProductDetailProps extends IProductDetailComponentProps {
-  productId: number;
+  routerProductId: number;
   dispatch: React.Dispatch<IAction>;
+  selectedProductId: number;
 }
 
 type IProductDetailType = IProductDetailComponentProps & IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
@@ -29,12 +31,16 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
 
   public componentDidMount() {
     const {
-      productId,
+      routerProductId,
       dispatch,
+      selectedProductId,
     } = this.props;
 
-    console.log(productId)
-    dispatch(new GetSearchProduct({productId}))
+    console.log(routerProductId, selectedProductId)
+    if (selectedProductId !== routerProductId) {
+      dispatch(new SelectProductAction({productId: routerProductId}))
+      dispatch(new GetSearchProduct({productId: routerProductId}))
+    }
   }
 
   public render() {
@@ -59,12 +65,12 @@ const mapStateToProps = (state: any, props: IProductDetailComponentProps) => {
     match,
   } = props;
 
-  const productId = getIn(match, ['params', 'productId'], -1);
+  const routerProductId = getIn(match, ['params', 'routerProductId'], -1);
 
   return {
-    productId,
+    routerProductId,
     ...createStructuredSelector({
-
+      selectedProductId: makeSelectSelectedProductId(),
   })(state)
   };
 }

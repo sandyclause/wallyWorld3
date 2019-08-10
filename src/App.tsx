@@ -10,10 +10,6 @@ import { createBrowserHistory } from 'history';
 import defaultReducer from './reducers/default';
 
 import Home from './containers/Home';
-import UserList from './containers/UserList';
-import Todo from './containers/Todo';
-import TodoUser from './containers/TodoUser';
-
 import {
   Route,
   Switch,
@@ -71,26 +67,9 @@ const App: React.FC = () => {
                   Home
                 </Link>
               </Grid>
-              <Grid
-                item={true}
-              >
-                <Link to='/users'>
-                  User List
-                </Link>
-              </Grid>
-              <Grid
-                item={true}
-              >
-                <Link to='/todo'>
-                  Todos
-                </Link>
-              </Grid>
             </Grid>
           </Grid>
           <Switch>
-            <Route path={'/users'} exact={true} component={UserList} />
-            <Route path={'/todo'} exact={true} component={Todo} />
-            <Route path={'/todo/:userId?'} component={TodoUser} />
             <Route path={'/'} exact={true} component={Home} />
             <Route path="/search/:query" component={ResultsContainer} />
             <Route path="/productDetail/:productId" component={ProductDetail} />

@@ -9,9 +9,6 @@ import { IProduct } from '../interfaces/Product';
 export default {};
 
 export enum DefaultActionTypes {
-  ADD_USER = 'ADD_USER',
-  ADD_TODO = 'ADD_TODO',
-  ADD_CAT_FACT = 'ADD_CAT_FACT',
   GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED',
   GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED',
   GET_TRENDS_REQUESTED = 'GET_TRENDS_REQUESTED',
@@ -21,57 +18,7 @@ export enum DefaultActionTypes {
   GET_SEARCH_PRODUCT_SUCCEEDED = 'GET_SEARCH_PRODUCT_SUCCEEDED',
   GET_SEARCH_PRODUCTS_REQUESTED = 'GET_SEARCH_PRODUCTS_REQUESTED',
   GET_SEARCH_PRODUCTS_SUCCEEDED = 'GET_SEARCH_PRODUCTS_SUCCEEDED',
-}
-
-export interface IUser {
-  id: number;
-  name: string;
-}
-
-export const UserFactory = Record<IUser>({
-  id: -1,
-  name: '',
-});
-
-export interface ITodo {
-  id:  number;
-  userId: number;
-  title: string;
-}
-
-export const TodoFactory = Record<ITodo>({
-  id: -1,
-  userId: -1,
-  title: 'untitled',
-});
-
-export class AddUserAction implements IAction {
-  public readonly type = DefaultActionTypes.ADD_USER;
-  constructor(
-    public payload: {
-      user: Record<IUser>,
-    }
-  ) {}
-}
-
-export class AddTodoAction implements IAction {
-  public readonly type = DefaultActionTypes.ADD_TODO;
-  constructor(
-    public payload: {
-      userId: number,
-      todo: Record<ITodo>,
-    }
-  ) {}
-}
-
-export class AddCatFactAction implements IAction {
-  public readonly type = DefaultActionTypes.ADD_CAT_FACT;
-  constructor(
-    public payload: {
-      userId: number,
-      todo: Record<ITodo>,
-    }
-  ) {}
+  SELECT_PRODUCT = 'SELECT_PRODUCT',
 }
 
 export class GetProductsAction implements IAction {
@@ -134,3 +81,12 @@ export class GetSearchProduct implements IAction {
 //     public payload: List<Record<IProduct>>
 //   ) {}
 // }
+
+export class SelectProductAction implements IAction {
+  public readonly type = DefaultActionTypes.SELECT_PRODUCT;
+  constructor(
+    public payload: {
+      productId: number
+    }
+  ) {}
+}
