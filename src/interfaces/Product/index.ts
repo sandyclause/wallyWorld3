@@ -1,4 +1,4 @@
-import { Record } from "immutable";
+import { Record, List } from "immutable";
 
 import { IImageEntity } from "../ImageEntity";
 
@@ -18,9 +18,10 @@ export interface IProduct {
   freeShipToStore: boolean;
   freeShippingOver35Dollars: boolean;
   giftOptions: object;
-  imageEntities: Record<IImageEntity>;
+  imageEntities: List<Record<IImageEntity>>;
   itemId: number;
   largeImage: string;
+  longDescription: string;
   marketplace: boolean;
   mediumImage: string;
   modelNumber: string;
@@ -34,6 +35,7 @@ export interface IProduct {
   productTrackingUrl: string;
   productUrl: string;
   rhid: string;
+  sellerInfo: string;
   salePrice: number;
   shipToStore: boolean;
   shortDescription: string;
