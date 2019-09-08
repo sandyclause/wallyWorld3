@@ -14,6 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectSearchResults } from '../../selectors/default';
 import { Record, List } from 'immutable';
 import { IProduct } from '../../interfaces/Product';
+import Layout from '../Layout';
 
 interface IResultsContainerComponentProps {
 
@@ -34,19 +35,21 @@ class ResultsContainer extends React.Component<IResultsContainerType, {}> {
     } = this.props;
 
     return (
-      <Grid
-        container={true}
-        direction='row'
-        wrap='wrap'
-        justify='space-between'
-      >
-        <p>results container</p>
-        {
-          searchData && searchData.map((product: Record<IProduct>, index: number) => {
-            return <ProductCard productData={product} key={index} />
-          }).valueSeq().toArray()
-        }
-      </Grid>
+      <Layout>
+        <Grid
+          container={true}
+          direction='row'
+          wrap='wrap'
+          justify='space-between'
+        >
+          <p>results container</p>
+          {
+            searchData && searchData.map((product: Record<IProduct>, index: number) => {
+              return <ProductCard productData={product} key={index} />
+            }).valueSeq().toArray()
+          }
+        </Grid>
+      </Layout>
     );
   }
 }

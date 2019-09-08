@@ -20,6 +20,7 @@ import {
 } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ReactLoading from 'react-loading';
+import Layout from '../Layout';
 
 interface IProductDetailComponentProps {
   match: IMatch;
@@ -173,168 +174,170 @@ class ProductDetail extends React.Component<IProductDetailType, IProductDetailSt
       </Grid>
 
     return (
-      <Grid
-        container={true}
-        direction='column'
-        className={classes.root}
-      >
-        {
-          productData == null
-            ? <ReactLoading type='spin' color='#007dc6' height={60} width={30} />
-            : null
-        }
-        <CssBaseline />
-        {/* picture and sideInfo containers */}
-        <Grid
-          container={true}
-          direction='row'
-          wrap='wrap'
-          className={classes.pictureSideInfoContainer}
-          spacing={4}
-        >
-          {/* picture container */}
-          <Grid
-            item={true}
-            lg={6}
-            md={6}
-            sm={12}
-          >
-            {
-              imageStatus === 'loaded'
-                ?
-                  productImages
-                :
-                  <ReactLoading type='spin' color='#007dc6' height={60} width={30} />
-            }
-          </Grid>
-
-          {/* side infoContainer */}
-          <Grid
-            item={true}
-            lg={6}
-            md={6}
-            sm={12}
-          >
-            {/* title container */}
-            <Grid
-              container={true}
-              direction='column'
-              className={classes.titleContainer}
-            >
-              <Typography
-                variant='h5'
-              >
-                {title}
-              </Typography>
-              <Typography
-                variant='subtitle1'
-              >
-                Sold and shipped by {sellerInfo}
-              </Typography>
-            </Grid>
-
-            {/* review summary container */}
-            <Grid
-              container={true}
-              direction='row'
-              wrap='nowrap'
-              alignContent='center'
-              spacing={2}
-              style={{width: 'auto'}}
-            >
-              {/* <Grid
-                item={true}
-              >
-                {
-                  customerRating ? <Stars
-                    starNum={customerRating}
-                  /> : null
-                }
-              </Grid> */}
-              <Grid
-                item={true}
-              >
-                <Typography
-                  variant='subtitle1'
-                  color='primary'
-                >
-                  {numRating} Reviews
-                </Typography>
-              </Grid>
-            </Grid>
-
-            {/* price container */}
-            <Grid
-              container={true}
-            >
-              {msrpGroup}
-            </Grid>
-          </Grid>
-
-        </Grid>
-        
-        <Divider />
-        {/* description and features */}
+      <Layout>
         <Grid
           container={true}
           direction='column'
-          wrap='nowrap'
+          className={classes.root}
         >
-          <Grid
-            container={true}
-            className={classes.descriptionTitleContainer}
-          >
-            <Typography
-              variant='h5'
-              color='primary'
-            >
-              Description & Features
-            </Typography>
-          </Grid>
-
-          {/* content */}
+          {
+            productData == null
+              ? <ReactLoading type='spin' color='#007dc6' height={60} width={30} />
+              : null
+          }
+          <CssBaseline />
+          {/* picture and sideInfo containers */}
           <Grid
             container={true}
             direction='row'
             wrap='wrap'
+            className={classes.pictureSideInfoContainer}
             spacing={4}
           >
+            {/* picture container */}
             <Grid
               item={true}
               lg={6}
               md={6}
-            >
-              <Typography>
-                {
-                  shortDesc
-                }
-              </Typography>
-            </Grid>
-            <Grid
-              item={true}
-              lg={6}
-              md={6}
+              sm={12}
             >
               {
-                longDescDecoded
+                imageStatus === 'loaded'
+                  ?
+                    productImages
+                  :
+                    <ReactLoading type='spin' color='#007dc6' height={60} width={30} />
               }
             </Grid>
-          </Grid>
 
-          {/* variants */}
-          {/* <Grid
+            {/* side infoContainer */}
+            <Grid
+              item={true}
+              lg={6}
+              md={6}
+              sm={12}
+            >
+              {/* title container */}
+              <Grid
+                container={true}
+                direction='column'
+                className={classes.titleContainer}
+              >
+                <Typography
+                  variant='h5'
+                >
+                  {title}
+                </Typography>
+                <Typography
+                  variant='subtitle1'
+                >
+                  Sold and shipped by {sellerInfo}
+                </Typography>
+              </Grid>
+
+              {/* review summary container */}
+              <Grid
+                container={true}
+                direction='row'
+                wrap='nowrap'
+                alignContent='center'
+                spacing={2}
+                style={{width: 'auto'}}
+              >
+                {/* <Grid
+                  item={true}
+                >
+                  {
+                    customerRating ? <Stars
+                      starNum={customerRating}
+                    /> : null
+                  }
+                </Grid> */}
+                <Grid
+                  item={true}
+                >
+                  <Typography
+                    variant='subtitle1'
+                    color='primary'
+                  >
+                    {numRating} Reviews
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              {/* price container */}
+              <Grid
+                container={true}
+              >
+                {msrpGroup}
+              </Grid>
+            </Grid>
+
+          </Grid>
+          
+          <Divider />
+          {/* description and features */}
+          <Grid
             container={true}
-            direction='row'
-            wrap='wrap'
-            justify='space-around'
+            direction='column'
+            wrap='nowrap'
           >
-            {variants}
-          </Grid> */}
+            <Grid
+              container={true}
+              className={classes.descriptionTitleContainer}
+            >
+              <Typography
+                variant='h5'
+                color='primary'
+              >
+                Description & Features
+              </Typography>
+            </Grid>
+
+            {/* content */}
+            <Grid
+              container={true}
+              direction='row'
+              wrap='wrap'
+              spacing={4}
+            >
+              <Grid
+                item={true}
+                lg={6}
+                md={6}
+              >
+                <Typography>
+                  {
+                    shortDesc
+                  }
+                </Typography>
+              </Grid>
+              <Grid
+                item={true}
+                lg={6}
+                md={6}
+              >
+                {
+                  longDescDecoded
+                }
+              </Grid>
+            </Grid>
+
+            {/* variants */}
+            {/* <Grid
+              container={true}
+              direction='row'
+              wrap='wrap'
+              justify='space-around'
+            >
+              {variants}
+            </Grid> */}
+          </Grid>
+          {
+            // <ProductReviewsContainer />
+          }
         </Grid>
-        {
-          // <ProductReviewsContainer />
-        }
-      </Grid>
+      </Layout>
     );
   }
 }
