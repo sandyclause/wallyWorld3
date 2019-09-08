@@ -33,16 +33,9 @@ interface IProductDetailProps extends IProductDetailComponentProps {
   productData: Record<IProduct>;
 }
 
-interface IProductDetailState {
-  imageStatus: string;
-}
-
 type IProductDetailType = IProductDetailComponentProps & IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
 
-class ProductDetail extends React.Component<IProductDetailType, IProductDetailState> {
-  public state = {
-    imageStatus: ''
-  }
+class ProductDetail extends React.Component<IProductDetailType, {}> {
 
   public componentDidMount() {
     const {
@@ -50,35 +43,24 @@ class ProductDetail extends React.Component<IProductDetailType, IProductDetailSt
       dispatch,
       selectedProductId,
     } = this.props;
-    
-    this.setState({
-      imageStatus: ''
-    })
 
-    console.log(routerProductId, selectedProductId)
-    if (selectedProductId !== routerProductId) {
-      // dispatch(new SelectProductAction({productId: routerProductId}))
+    console.log(selectedProductId, routerProductId)
+    if (selectedProductId !== Number(routerProductId)) {
+      console.log('not equal')
+      dispatch(new SelectProductAction({productId: Number(routerProductId)}))
       dispatch(new GetSearchProduct({productId: routerProductId}))
     }
-  }
-
-  public handleImageLoaded = () => {
-    this.setState({
-      imageStatus: 'loaded'
-    })
   }
 
   public render() {
     const {
       productData,
       classes,
+      selectedProductId,
     } = this.props;
 
-    const {
-      imageStatus
-    } = this.state;
-
     console.log(productData)
+    console.log(selectedProductId)
 
     const title = productData.get('name');
     const numRating = productData.get('numReviews');
@@ -158,7 +140,6 @@ class ProductDetail extends React.Component<IProductDetailType, IProductDetailSt
                   <img
                     src={imageData.get('largeImage')}
                     alt={`large image of ${productData.get('name')}`}
-                    onLoad={() => this.handleImageLoaded()}
                   />
                 </div>
               })
@@ -169,7 +150,6 @@ class ProductDetail extends React.Component<IProductDetailType, IProductDetailSt
         <img
           src={largeImage}
           alt={`large image of ${productData.get('name')}`}
-          onLoad={() => this.handleImageLoaded()}
         />
       </Grid>
 
@@ -202,7 +182,7 @@ class ProductDetail extends React.Component<IProductDetailType, IProductDetailSt
               sm={12}
             >
               {
-                imageStatus === 'loaded'
+                imageEntities || largeImage
                   ?
                     productImages
                   :

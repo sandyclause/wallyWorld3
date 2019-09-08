@@ -56,6 +56,7 @@ export const makeSelectProduct = () => createSelector(
   makeSelectProducts(),
   makeSelectSelectedProductId(),
   (products: Map<number, Record<IProduct>>, productId: number) => {
+    console.log(products, productId)
 
     return products.get(productId) || Map();
   }

@@ -44,7 +44,7 @@ class ProductCard extends React.Component<IProductCardType, {}> {
     } = this.props;
 
     const productId = productData.get('itemId');
-    dispatch( new SelectProductAction({productId}));
+    dispatch(new SelectProductAction({productId: Number(productId)}));
     dispatch(push(`/productDetail/${productId}`));
   }
 
