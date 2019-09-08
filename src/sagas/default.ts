@@ -13,6 +13,7 @@ import {
   MakeSelectProductIdsAction,
   GetProductsSucceeded,
   GetSearchProduct,
+  GetReviewssAction,
 } from '../actions/default';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import Qs from "qs";
@@ -24,6 +25,7 @@ export default function* defaultSaga() {
   yield takeLatest(DefaultActionTypes.GET_TRENDS_REQUESTED, searchTrends);
   yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCTS_REQUESTED, searchProducts);
   yield takeLatest(DefaultActionTypes.GET_SEARCH_PRODUCT_REQUESTED, searchProduct);
+  yield takeLatest(DefaultActionTypes.GET_REVIEWS, getReviews);
   while (true) {
     console.debug('saga running');
     yield delay(10000);
@@ -180,4 +182,50 @@ function* searchTrends(
   } else {
     console.error('get trends error', error)
   }
+}
+
+function* getReviews(
+  action: GetReviewssAction,
+) {
+  const {
+    payload
+  } = action;
+  const {
+    itemId
+  } = payload;
+
+  const {
+    data,
+    error,
+  }: {
+    data: any,
+    error: Error,
+  } = yield call(apiCallWaitingAction, {
+    params: {
+      reqUrl: `http://api.walmartlabs.com/v1/reviews/${
+        itemId
+      }`,
+      params: {
+        apiKey: apiKey
+      },
+      proxyHeaders: {
+        headers_params: "value"
+      },
+      xmlToJSON: false
+    }
+  });
+
+  if (data) {
+    console.log(data)
+  //   const immutableData = fromJS(data.data);
+  //   const products = immutableData.get('items');
+  //   if (products == null) {
+  //     console.error('invalid response', data)
+  //   }
+  //   yield put(new GetProductsSucceeded(products))
+  // } else {
+  //   console.error('get trends error', error)
+  // }
+  }
+  
 }

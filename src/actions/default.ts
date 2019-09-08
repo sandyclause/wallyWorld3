@@ -19,6 +19,18 @@ export enum DefaultActionTypes {
   GET_SEARCH_PRODUCTS_REQUESTED = 'GET_SEARCH_PRODUCTS_REQUESTED',
   SELECT_PRODUCT_IDS = 'SELECT_PRODUCT_IDS',
   SELECT_PRODUCT = 'SELECT_PRODUCT',
+  GET_REVIEWS = 'GET_REVIEWS',
+  GET_REVIEWS_SUCCEEDED = 'GET_REVIEWS_SUCCEEDED',
+}
+
+
+export class GetReviewssAction implements IAction {
+  public readonly type = DefaultActionTypes.GET_REVIEWS;
+  constructor(
+    public payload: {
+      itemId: number
+    }
+  ) {}
 }
 
 export class GetProductsAction implements IAction {

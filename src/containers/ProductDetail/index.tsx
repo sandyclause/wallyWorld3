@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   connect,
 } from 'react-redux';
-import { compose } from 'redux';
+import { compose, Dispatch } from 'redux';
 import { Grid, withStyles, Theme, Input, Typography, CssBaseline, Divider } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/styles';
 import { createStructuredSelector } from 'reselect';
@@ -10,9 +10,8 @@ import { IMatch, IAction } from '../../Interfaces';
 import {
   getIn,
   Record,
-  List,
 } from 'immutable';
-import { GetSearchProduct, SelectProductAction } from '../../actions/default';
+import { GetSearchProduct, SelectProductAction, GetReviewssAction } from '../../actions/default';
 import { makeSelectSelectedProductId, makeSelectProduct } from '../../selectors/default';
 import { IProduct } from '../../interfaces/Product';
 import {
@@ -33,6 +32,9 @@ interface IProductDetailProps extends IProductDetailComponentProps {
   dispatch: React.Dispatch<IAction>;
   selectedProductId: number;
   productData: Record<IProduct>;
+  selectProduct: (routerProductId: number) => void;
+  getSearchProduct: (routerProductId: number) => void;
+  getReviews: (itemId: number) => void;
 }
 
 type IProductDetailType = IProductDetailComponentProps & IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
@@ -44,12 +46,18 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
       routerProductId,
       dispatch,
       selectedProductId,
+      selectProduct,
+      getSearchProduct,
+      getReviews,
     } = this.props;
 
-    console.log(selectedProductId, routerProductId)
-    if (selectedProductId !== Number(routerProductId)) {
-      dispatch(new SelectProductAction({productId: Number(routerProductId)}))
-      dispatch(new GetSearchProduct({productId: routerProductId}))
+    const routerProductIdAsNumber = Number(routerProductId);
+
+    getReviews(routerProductIdAsNumber);
+
+    if (selectedProductId !== routerProductIdAsNumber) {
+      selectProduct(routerProductIdAsNumber);
+      getSearchProduct(routerProductId);
     }
   }
 
@@ -363,7 +371,20 @@ const mapStateToProps = (state: any, props: IProductDetailComponentProps) => {
   };
 }
 
+const mapDispatchToProps = (dispatch: Dispatch<IAction>) => ({
+  selectProduct: (routerProductId: number) => {
+    dispatch(new SelectProductAction({productId: routerProductId}))
+  },
+  getSearchProduct: (routerProductId: number) => {
+    dispatch(new GetSearchProduct({productId: routerProductId}))
+  },
+  getReviews: (itemId: number) => {
+    dispatch(new GetReviewssAction({itemId}))
+  },
+  dispatch
+});
+
 export default compose<React.ComponentClass<IProductDetailComponentProps>>(
   withStyles(styles),
-  connect(mapStateToProps, null),
+  connect(mapStateToProps, mapDispatchToProps),
 )(ProductDetail);
