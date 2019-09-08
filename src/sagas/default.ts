@@ -176,7 +176,7 @@ function* searchTrends(
     if (products == null) {
       console.error('invalid response', data)
     }
-    yield put(new GetTrendsSucceededAction(products))
+    yield put(new GetProductsSucceeded(products))
   } else {
     console.error('get trends error', error)
   }

@@ -19,11 +19,6 @@ export const selectReducerState = () => (state: any) => {
   return Map();
 };
 
-export const makeSelectTrendProducts = () => createSelector(
-  selectReducerState(),
-  (state: Record<IReducerState>) => state.get('trendProducts') || List<Record<IProduct>>(),
-);
-
 export const makeSelectSelectedProductIds = () => createSelector(
   selectReducerState(),
   (state: Record<IReducerState>) => state.get('searchProducts') || List<number>(),

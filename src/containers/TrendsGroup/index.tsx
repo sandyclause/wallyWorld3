@@ -11,7 +11,7 @@ import {
   StyleRules, Theme
 } from '@material-ui/core/styles';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectTrendProducts } from '../../selectors/default';
+import { makeSelectProducts } from '../../selectors/default';
 import { IProduct } from '../../interfaces/Product';
 import { Record, List } from 'immutable';
 import ProductCard from '../../components/ProductCard';
@@ -22,7 +22,7 @@ interface ITrendsGroupComponentProps {
 
 interface ITrendsGroupProps {
   dispatch: React.Dispatch<IAction>;
-  trendProducts: List<Record<IProduct>>;
+  products: List<Record<IProduct>>;
 }
 
 type ITrendsGroupType = ITrendsGroupComponentProps & ITrendsGroupProps & WithStyles<keyof ReturnType<typeof styles>>;
@@ -39,9 +39,9 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
 
   public render() {
     const {
-      trendProducts
+      products,
     } = this.props;
-    
+
     return (
       <Grid
         container={true}
@@ -50,7 +50,7 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
         justify='space-between'
       >
         {
-          trendProducts && trendProducts.map((product: Record<IProduct>, index: number) => {
+          products && products.map((product: Record<IProduct>, index: number) => {
             return  <ProductCard
                       key={index}
                       productData={product}
@@ -68,7 +68,7 @@ const styles = (theme: Theme): StyleRules => ({
 
 const mapStateToProps = (originalState: any, originalOwnProps: ITrendsGroupComponentProps) => {
   return createStructuredSelector({
-    trendProducts: makeSelectTrendProducts(),
+    products: makeSelectProducts(),
   })(originalState);
 }
 
