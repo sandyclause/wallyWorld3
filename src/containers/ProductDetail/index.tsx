@@ -21,6 +21,8 @@ import {
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ReactLoading from 'react-loading';
 import Layout from '../Layout';
+let decode = require('decode-html');
+let renderHTML = require('react-render-html')
 
 interface IProductDetailComponentProps {
   match: IMatch;
@@ -46,7 +48,6 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
 
     console.log(selectedProductId, routerProductId)
     if (selectedProductId !== Number(routerProductId)) {
-      console.log('not equal')
       dispatch(new SelectProductAction({productId: Number(routerProductId)}))
       dispatch(new GetSearchProduct({productId: routerProductId}))
     }
@@ -59,18 +60,16 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
       selectedProductId,
     } = this.props;
 
-    console.log(productData)
-    console.log(selectedProductId)
-
     const title = productData.get('name');
     const numRating = productData.get('numReviews');
     const sellerInfo = productData.get('sellerInfo');
     const price = productData.get('salePrice', '');
     const msrp = productData.get('msrp', '');
     const shortDesc = productData.get('shortDescription');
+    const shortDescDecoded = shortDesc && renderHTML(decode(shortDesc));
     const customerRating = productData.get('customerRating');
     const longDesc = productData.get('longDescription');
-    const longDescDecoded = productData.get('longDescription');
+    const longDescDecoded = longDesc && renderHTML(decode(longDesc));
     const imageEntities = productData.get('imageEntities');
     const largeImage = productData.get('largeImage');
 
@@ -280,6 +279,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
               direction='row'
               wrap='wrap'
               spacing={4}
+              className={classes.contentText}
             >
               <Grid
                 item={true}
@@ -288,7 +288,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
               >
                 <Typography>
                   {
-                    shortDesc
+                    shortDescDecoded
                   }
                 </Typography>
               </Grid>
@@ -341,6 +341,9 @@ const styles = (theme: Theme): StyleRules => ({
   },
   pictureSideInfoContainer: {
     margin: '50px 0'
+  },
+  contentText: {
+    textAlign: 'left',
   }
 })
 
