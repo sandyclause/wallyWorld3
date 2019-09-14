@@ -22,6 +22,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ReactLoading from 'react-loading';
 import Layout from '../Layout';
 import { IReviewWithProductInfo } from '../../interfaces/review/review';
+import Stars from '../../components/Stars';
 let decode = require('decode-html');
 let renderHTML = require('react-render-html')
 
@@ -71,6 +72,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
       selectedProductReview,
     } = this.props;
 
+    console.log(productData)
     console.log(selectedProductReview)
 
     const productReviews = selectedProductReview.get('reviews', List());
@@ -237,7 +239,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
                 spacing={2}
                 style={{width: 'auto'}}
               >
-                {/* <Grid
+                <Grid
                   item={true}
                 >
                   {
@@ -245,7 +247,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
                       starNum={customerRating}
                     /> : null
                   }
-                </Grid> */}
+                </Grid>
                 <Grid
                   item={true}
                 >
