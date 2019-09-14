@@ -23,6 +23,7 @@ import ReactLoading from 'react-loading';
 import Layout from '../Layout';
 import { IReviewWithProductInfo } from '../../interfaces/review/review';
 import Stars from '../../components/Stars';
+import ProductReviewsContainer from '../ProductReviewsContainer';
 let decode = require('decode-html');
 let renderHTML = require('react-render-html')
 
@@ -41,7 +42,7 @@ interface IProductDetailProps extends IProductDetailComponentProps {
   selectedProductReview: Record<IReviewWithProductInfo>;
 }
 
-type IProductDetailType = IProductDetailComponentProps & IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
+type IProductDetailType = IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
 
 class ProductDetail extends React.Component<IProductDetailType, {}> {
 
@@ -334,7 +335,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
             </Grid> */}
           </Grid>
           {
-            // <ProductReviewsContainer />
+            <ProductReviewsContainer />
           }
         </Grid>
       </Layout>
