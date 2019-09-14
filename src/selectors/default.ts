@@ -10,6 +10,7 @@ import {
   IReducerState,
 } from '../reducers/default';
 import { IProduct } from '../interfaces/Product';
+import { IReviewWithProductInfo } from '../interfaces/review/review';
 
 export const selectReducerState = () => (state: any) => {
   const reducerState = state.get('default');
@@ -39,6 +40,19 @@ export const makeSelectSearchResults = () => createSelector(
     })
 
     return productsMap;
+  }
+);
+
+export const makeSelectReviews = () => createSelector(
+  selectReducerState(),
+  (state: Record<IReducerState>) => state.get('reviews') || Map<number, Record<IProduct>>(),
+);
+
+export const makeSelectSelectedProductReview = () => createSelector(
+  makeSelectReviews(),
+  makeSelectSelectedProductId(),
+  (reviews: Map<number, Record<IReviewWithProductInfo>>, productId: number) => {
+    return reviews.get(productId) || Map();
   }
 );
 

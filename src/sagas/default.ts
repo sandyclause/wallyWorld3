@@ -195,8 +195,6 @@ function* getReviews(
     itemId
   } = payload;
 
-  console.log(itemId)
-
   const {
     data,
     error,

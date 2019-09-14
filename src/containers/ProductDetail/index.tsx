@@ -10,9 +10,10 @@ import { IMatch, IAction } from '../../Interfaces';
 import {
   getIn,
   Record,
+  List,
 } from 'immutable';
 import { GetSearchProduct, SelectProductAction, GetReviewsAction } from '../../actions/default';
-import { makeSelectSelectedProductId, makeSelectProduct } from '../../selectors/default';
+import { makeSelectSelectedProductId, makeSelectProduct, makeSelectSelectedProductReview } from '../../selectors/default';
 import { IProduct } from '../../interfaces/Product';
 import {
   Carousel
@@ -20,6 +21,7 @@ import {
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ReactLoading from 'react-loading';
 import Layout from '../Layout';
+import { IReviewWithProductInfo } from '../../interfaces/review/review';
 let decode = require('decode-html');
 let renderHTML = require('react-render-html')
 
@@ -35,6 +37,7 @@ interface IProductDetailProps extends IProductDetailComponentProps {
   selectProduct: (routerProductId: number) => void;
   getSearchProduct: (routerProductId: number) => void;
   getReviews: (itemId: number) => void;
+  selectedProductReview: Record<IReviewWithProductInfo>;
 }
 
 type IProductDetailType = IProductDetailComponentProps & IProductDetailProps & WithStyles<keyof ReturnType<typeof styles>>;
@@ -65,10 +68,14 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
       productData,
       classes,
       selectedProductId,
+      selectedProductReview,
     } = this.props;
 
+    console.log(selectedProductReview)
+
+    const productReviews = selectedProductReview.get('reviews', List());
     const title = productData.get('name');
-    const numRating = productData.get('numReviews');
+    const reviewNumber = productData.get('numReviews');
     const sellerInfo = productData.get('sellerInfo');
     const price = productData.get('salePrice', '');
     const msrp = productData.get('msrp', '');
@@ -242,12 +249,16 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
                 <Grid
                   item={true}
                 >
-                  <Typography
-                    variant='subtitle1'
-                    color='primary'
-                  >
-                    {numRating} Reviews
-                  </Typography>
+                  {
+                    reviewNumber
+                      ? <Typography
+                          variant='subtitle1'
+                          color='primary'
+                        >
+                          {reviewNumber} Reviews
+                        </Typography>
+                      : null
+                  }
                 </Grid>
               </Grid>
 
@@ -366,6 +377,7 @@ const mapStateToProps = (state: any, props: IProductDetailComponentProps) => {
     ...createStructuredSelector({
       selectedProductId: makeSelectSelectedProductId(),
       productData: makeSelectProduct(),
+      selectedProductReview: makeSelectSelectedProductReview(),
   })(state)
   };
 }
