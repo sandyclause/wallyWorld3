@@ -21,7 +21,7 @@ import { makeSelectReviews, makeSelectSelectedProductReview } from '../../select
 import { createStructuredSelector } from 'reselect';
 
 interface IReviewsGroupComponentProps {
-  selectedReviewNumber: number
+  selectedReviewNumbers: Array<number>
 }
 
 interface IReviewsGroupProps extends IReviewsGroupComponentProps {
@@ -37,16 +37,17 @@ class ReviewsGroup extends React.Component<IReviewsGroupType, {}> {
     
 		const {
 			selectedProductReview,
-			selectedReviewNumber,
+			selectedReviewNumbers,
 		} = this.props;
 
     const reviews = selectedProductReview.get('reviews', List());
-		const filteredReviews = selectedReviewNumber === -1
+		const filteredReviews = selectedReviewNumbers.length === 0
 			? reviews
 			: reviews.filter((review) => {
-        // yo why is number a string...
-				return review.getIn(['overallRating', 'rating']) === String(selectedReviewNumber);
-      });
+				// yo why is number a string...
+				const rating = review.getIn(['overallRating', 'rating']);
+				return selectedReviewNumbers.includes(Number(rating))
+			});
 
 		const reviewsNum = filteredReviews.size;
 		const reviewsGroup = filteredReviews.map((review, index) => {

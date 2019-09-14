@@ -57,7 +57,7 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
           direction='row'
           wrap='nowrap'
           key={key}
-          onClick={() => grabNumber(key)}
+          onClick={() => grabNumber(Number(key))}
         >
           <Grid
             className={classes.starIcon}

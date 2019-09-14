@@ -28,7 +28,7 @@ interface IProductReviewsContainerProps extends IProductReviewsContainerComponen
 }
 
 interface IProductReviewsContainerState {
-  selectedReviewNumber: number;
+  selectedReviewNumbers: Array<number>;
 }
 
 type IProductReviewsContainerType = IProductReviewsContainerProps & WithStyles<keyof ReturnType<typeof styles>>;
@@ -36,19 +36,42 @@ type IProductReviewsContainerType = IProductReviewsContainerProps & WithStyles<k
 
 class ProductReviewsContainer extends React.Component<IProductReviewsContainerType, IProductReviewsContainerState> {
 	public state = {
-		selectedReviewNumber: -1,
+		selectedReviewNumbers: [],
 	}
 
 	public setSelectedReviewNumber = (number: number) => {
+    const {
+      selectedReviewNumbers
+    } = this.state;
+
+    const stateCopy: number[] = [...selectedReviewNumbers]
+    stateCopy.push(number);
+
 		this.setState({
-			selectedReviewNumber: number,
-		})
+			selectedReviewNumbers: stateCopy,
+		}, () => console.log(this.state.selectedReviewNumbers))
 	}
 
-	public handleDelete = () => {
+	public handleDelete = (number?: number) => {
+    const {
+      selectedReviewNumbers
+    } = this.state;
+
+    if (number) {
+      const stateCopy: number[] = [...selectedReviewNumbers];
+      const arrayIndex = stateCopy.indexOf(number)
+  
+      stateCopy.splice(arrayIndex, 1);
+      
+      return this.setState({
+        selectedReviewNumbers: stateCopy,
+      }, () => console.log(selectedReviewNumbers))
+    }
+
+
 		this.setState({
-			selectedReviewNumber: -1,
-		})
+			selectedReviewNumbers: [],
+		}, () => console.log(selectedReviewNumbers))
 	}
 
   public render() {
@@ -58,19 +81,24 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 		} = this.props;
 
 		const {
-			selectedReviewNumber
+			selectedReviewNumbers
 		} = this.state;
 
 		const ReviewFilters = () => {
 			return (
-				selectedReviewNumber !== -1
+				selectedReviewNumbers.length !== 0
 					?	<Grid>
-							<Chip
-								label={selectedReviewNumber}
-								onDelete={this.handleDelete}
-								className={classes.chip}
-								color="primary"
-							/>
+              {
+                selectedReviewNumbers.map((number: number, index) => {
+                  return <Chip
+                          label={number}
+                          onDelete={() => this.handleDelete(number)}
+                          className={classes.chip}
+                          color="primary"
+                          key={index}
+                        />
+                })
+              }
 							<Chip
 								label='Clear All'
 								onDelete={this.handleDelete}
@@ -104,7 +132,7 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 
 				{/* review */}
 				<ReviewsGroup
-					selectedReviewNumber={this.state.selectedReviewNumber}
+					selectedReviewNumbers={this.state.selectedReviewNumbers}
 				/>
       </Grid>
     )
