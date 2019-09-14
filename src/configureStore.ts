@@ -85,6 +85,8 @@ export default function configureStore({
       (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         immutable: Immutable,
         shouldHotReload: false,
+        trace: true,
+        traceLimit: 25,
       }) :
       compose;
 

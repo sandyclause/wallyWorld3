@@ -5,6 +5,7 @@ import {
   Record, List,
 } from 'immutable';
 import { IProduct } from '../interfaces/Product';
+import { IReview, IReviewWithProductInfo } from '../interfaces/review/review';
 
 export default {};
 
@@ -24,12 +25,19 @@ export enum DefaultActionTypes {
 }
 
 
-export class GetReviewssAction implements IAction {
+export class GetReviewsAction implements IAction {
   public readonly type = DefaultActionTypes.GET_REVIEWS;
   constructor(
     public payload: {
       itemId: number
     }
+  ) {}
+}
+
+export class GetReviewsSucceededAction implements IAction {
+  public readonly type = DefaultActionTypes.GET_REVIEWS_SUCCEEDED;
+  constructor(
+    public payload: Record<IReviewWithProductInfo>
   ) {}
 }
 

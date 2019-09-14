@@ -11,7 +11,7 @@ import {
   getIn,
   Record,
 } from 'immutable';
-import { GetSearchProduct, SelectProductAction, GetReviewssAction } from '../../actions/default';
+import { GetSearchProduct, SelectProductAction, GetReviewsAction } from '../../actions/default';
 import { makeSelectSelectedProductId, makeSelectProduct } from '../../selectors/default';
 import { IProduct } from '../../interfaces/Product';
 import {
@@ -52,7 +52,6 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
     } = this.props;
 
     const routerProductIdAsNumber = Number(routerProductId);
-
     getReviews(routerProductIdAsNumber);
 
     if (selectedProductId !== routerProductIdAsNumber) {
@@ -379,7 +378,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>) => ({
     dispatch(new GetSearchProduct({productId: routerProductId}))
   },
   getReviews: (itemId: number) => {
-    dispatch(new GetReviewssAction({itemId}))
+    dispatch(new GetReviewsAction({itemId}))
   },
   dispatch
 });

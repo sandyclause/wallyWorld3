@@ -14,14 +14,17 @@ import {
   MakeSelectProductIdsAction,
   GetProductsSucceeded,
   SelectProductAction,
+  GetReviewsSucceededAction,
 } from '../actions/default';
 import { IProduct } from '../interfaces/Product';
+import { IReview, IReviewWithProductInfo } from '../interfaces/review/review';
 
 export interface IReducerState {
   trendProducts: List<Record<IProduct>>;
   searchProducts: List<number>;
   products: Map<number, Record<IProduct>>;
   selectedProductId: number;
+  reviews: Map<number, Record<IReviewWithProductInfo>>;
 }
 
 const INITIAL_STATE = fromJS({
@@ -29,10 +32,18 @@ const INITIAL_STATE = fromJS({
   searchProducts: [],
   products: {},
   selectedProductId: -1,
+  reviews: {},
 });
 
 export const reducer = (state: Record<IReducerState> = INITIAL_STATE, action: IAction) => {
   switch (action.type) {
+    case DefaultActionTypes.GET_REVIEWS_SUCCEEDED: {
+      const { 
+        payload: reviewData
+      } = action as GetReviewsSucceededAction;
+      
+      return state.setIn(['reviews', reviewData.get('itemId')], reviewData)
+    }
     case DefaultActionTypes.GET_TRENDS_SUCCEEDED: {
       const { payload } = action as GetTrendsSucceededAction;
 

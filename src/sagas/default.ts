@@ -13,7 +13,8 @@ import {
   MakeSelectProductIdsAction,
   GetProductsSucceeded,
   GetSearchProduct,
-  GetReviewssAction,
+  GetReviewsAction,
+  GetReviewsSucceededAction,
 } from '../actions/default';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import Qs from "qs";
@@ -185,7 +186,7 @@ function* searchTrends(
 }
 
 function* getReviews(
-  action: GetReviewssAction,
+  action: GetReviewsAction,
 ) {
   const {
     payload
@@ -193,6 +194,8 @@ function* getReviews(
   const {
     itemId
   } = payload;
+
+  console.log(itemId)
 
   const {
     data,
@@ -216,16 +219,14 @@ function* getReviews(
   });
 
   if (data) {
-    console.log(data)
-  //   const immutableData = fromJS(data.data);
-  //   const products = immutableData.get('items');
-  //   if (products == null) {
-  //     console.error('invalid response', data)
-  //   }
-  //   yield put(new GetProductsSucceeded(products))
-  // } else {
-  //   console.error('get trends error', error)
-  // }
+    const immutableData = fromJS(data);
+    const review = immutableData.get('data');
+    if (review == null) {
+      console.error('invalid response', data)
+    }
+    yield put(new GetReviewsSucceededAction(review));
+  } else {
+    console.error('get trends error', error)
   }
   
 }
