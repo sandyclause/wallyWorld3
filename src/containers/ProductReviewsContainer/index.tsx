@@ -18,6 +18,7 @@ import { makeSelectSelectedProductReview } from '../../selectors/default';
 import { IReviewWithProductInfo } from '../../interfaces/review/review';
 import { Record } from 'immutable';
 import ReviewBarChart from '../../components/ReviewBarChart';
+import ReviewsGroup from '../../components/ReviewsGroup';
 
 interface IProductReviewsContainerComponentProps {
 }
@@ -102,9 +103,9 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 				<ReviewFilters />
 
 				{/* review */}
-				{/* <ReviewsGroup
+				<ReviewsGroup
 					selectedReviewNumber={this.state.selectedReviewNumber}
-				/> */}
+				/>
       </Grid>
     )
   }

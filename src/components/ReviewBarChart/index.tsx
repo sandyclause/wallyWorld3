@@ -10,8 +10,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import { compose } from 'redux';
-// import ReviewBarChart from '../../components/ReviewBarChart';
-// import ReviewsGroup from '../../components/ReviewsGroup';
 import { WithStyles } from '@material-ui/styles';
 import { StyleRules } from '@material-ui/core/styles';
 import { IReviewWithProductInfo } from '../../interfaces/review/review';
@@ -38,8 +36,7 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
       classes,
       grabNumber,
     } = this.props;
-    
-    const reviews = reviewsData && reviewsData.get('reviews');
+
     const reviewStats = reviewsData && reviewsData.get('reviewStatistics', Map());
     const totalReviewcCount = reviewStats.get('totalReviewCount', '');
 
@@ -51,8 +48,6 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
           return withValues;
         }, Map()) 
 		  : null;
-		
-		console.log(immutableParsedReviews)
     
     const ratingBars = immutableParsedReviews && immutableParsedReviews.reverse().map((review: number, key: string) => {
       return (
