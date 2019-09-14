@@ -47,9 +47,9 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
 					const withValues = acc.setIn([rating.get('ratingValue')], rating.get('count'));
           return withValues;
         }, Map()) 
-		  : null;
+			: null;
     
-    const ratingBars = immutableParsedReviews && immutableParsedReviews.reverse().map((review: number, key: string) => {
+    const ratingBars = immutableParsedReviews && immutableParsedReviews.reverse().map((review: string, key: number) => {
       return (
         <Grid
           className={classes.ratingBars}
@@ -57,7 +57,7 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
           direction='row'
           wrap='nowrap'
           key={key}
-          onClick={() => grabNumber(Number(key))}
+          onClick={() => grabNumber(key)}
         >
           <Grid
             className={classes.starIcon}
@@ -84,7 +84,7 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
             <Grid
               item={true}
               className={classes.bar}
-              style={{width: `${review / Number(totalReviewcCount) * 100}%`}}
+              style={{width: `${Number(review) / Number(totalReviewcCount) * 100}%`}}
             >
             </Grid>
           </Grid>

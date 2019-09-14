@@ -40,12 +40,13 @@ class ReviewsGroup extends React.Component<IReviewsGroupType, {}> {
 			selectedReviewNumber,
 		} = this.props;
 
-		const reviews = selectedProductReview.get('reviews', List());
+    const reviews = selectedProductReview.get('reviews', List());
 		const filteredReviews = selectedReviewNumber === -1
 			? reviews
 			: reviews.filter((review) => {
-				return review.getIn(['overallRating', 'rating']) === selectedReviewNumber;
-			});
+        // yo why is number a string...
+				return review.getIn(['overallRating', 'rating']) === String(selectedReviewNumber);
+      });
 
 		const reviewsNum = filteredReviews.size;
 		const reviewsGroup = filteredReviews.map((review, index) => {
