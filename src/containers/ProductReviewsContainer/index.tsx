@@ -10,7 +10,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import { compose } from 'redux';
-// import ReviewBarChart from '../../components/ReviewBarChart';
 // import ReviewsGroup from '../../components/ReviewsGroup';
 import { WithStyles } from '@material-ui/styles';
 import { StyleRules } from '@material-ui/core/styles';
@@ -18,6 +17,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectSelectedProductReview } from '../../selectors/default';
 import { IReviewWithProductInfo } from '../../interfaces/review/review';
 import { Record } from 'immutable';
+import ReviewBarChart from '../../components/ReviewBarChart';
 
 interface IProductReviewsContainerComponentProps {
 }
@@ -93,10 +93,10 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 					Reviews
 				</Typography>
 				{/* review bar chart */}
-				{/* <ReviewBarChart
+				<ReviewBarChart
 					reviewsData={selectedProductReview}
 					grabNumber={this.setSelectedReviewNumber}
-				/> */}
+				/>
 
 				{/* review filter chips */}
 				<ReviewFilters />
