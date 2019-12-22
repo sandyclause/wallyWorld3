@@ -54,11 +54,11 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
     } = this.props;
 
     return (
-      <Grid className={classes.container}>
+      <Grid className={classes.root}>
         <form onSubmit={this.handleSubmit}>
           <div className={classes.inputContainer}>
             <Input
-              placeholder="Search Product"
+              placeholder='What are you looking for?'
               className={classes.input}
               inputProps={{
                 'aria-label': 'Description',
@@ -69,6 +69,7 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
               <FontAwesomeIcon
                 className={classes.searchIcon}
                 icon='search'
+                size='2x'
               />
             </button>
           </div>
@@ -79,6 +80,9 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
 }
 
 const styles = (theme: Theme): StyleRules => ({
+  root: {
+    width: '100%',
+  },
   input: {
     borderBottom: '1px solid',
     borderBottomColor: 'B4B4B4',
@@ -105,10 +109,9 @@ const styles = (theme: Theme): StyleRules => ({
   inputContainer: {
     width: '100%',
     position: 'relative',
+    height: 48,
   },
   searchIcon: {
-    width: 24,
-    height: 24,
     color: 'white',
   }
 })
