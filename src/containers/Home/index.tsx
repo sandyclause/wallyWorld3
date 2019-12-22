@@ -32,9 +32,6 @@ class HomePage extends React.Component<IHomePageType, {}> {
     return (
       <Layout>
         <Grid>
-          <h1>
-            WIP lol
-          </h1>
           <TrendsGroup />
         </Grid>
       </Layout>

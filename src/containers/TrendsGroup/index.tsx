@@ -5,7 +5,7 @@ import {
 import { compose } from 'redux';
 import { IAction } from '../../Interfaces';
 import { GetTrendsAction } from '../../actions/default';
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles, Typography } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
 import {
   StyleRules, Theme
@@ -39,31 +39,38 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
 
   public render() {
     const {
+      classes,
       products,
     } = this.props;
 
     return (
-      <Grid
-        container={true}
-        direction='row'
-        wrap='wrap'
-        justify='space-between'
-      >
-        {
-          products && products.map((product: Record<IProduct>, index: number) => {
-            return  <ProductCard
-                      key={index}
-                      productData={product}
-                    />
-          }).valueSeq().toArray()
-        }
-      </Grid>
+      <>
+        <Typography className={classes.title}>Trending Products</Typography>
+        <Grid
+          container={true}
+          direction='row'
+          wrap='wrap'
+          justify='space-between'
+        >
+          {
+            products && products.map((product: Record<IProduct>, index: number) => {
+              return  <ProductCard
+                        key={index}
+                        productData={product}
+                      />
+            }).valueSeq().toArray()
+          }
+        </Grid>
+      </>
     );
   }
 }
 
 const styles = (theme: Theme): StyleRules => ({
-
+  title: {
+    fontSize: '1.4rem',
+    fontWeight: 700,
+  }
 })
 
 const mapStateToProps = (originalState: any, originalOwnProps: ITrendsGroupComponentProps) => {
