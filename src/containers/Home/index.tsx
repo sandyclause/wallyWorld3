@@ -8,6 +8,7 @@ import { GetTrendsAction } from '../../actions/default';
 import { Grid } from '@material-ui/core';
 import TrendsGroup from '../TrendsGroup';
 import Layout from '../Layout';
+import { maxWidth } from '@material-ui/system';
 
 interface IHomePageComponentProps {
 
@@ -30,11 +31,16 @@ class HomePage extends React.Component<IHomePageType, {}> {
   
   public render() {
     return (
-      <Layout>
-        <Grid>
-          <TrendsGroup />
-        </Grid>
-      </Layout>
+      <Grid
+        container={true}
+        style={{maxWidth: 1440, margin: '0 auto'}}
+      >
+        <Layout>
+          <Grid>
+            <TrendsGroup />
+          </Grid>
+        </Layout>
+      </Grid>
     );
   }
 }

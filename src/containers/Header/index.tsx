@@ -45,16 +45,14 @@ class Header extends React.Component<IHeaderType, {}> {
     const filler = <Grid style={{width: 300}}></Grid>
     
     return (
-      <Grid style={{border: '1px solid red'}}>
-        <Grid
-          container={true}
-          direction='row'
-          wrap='wrap'
-        >
-          {logo}
-          <SearchBar />
-          {filler}
-        </Grid>
+      <Grid
+        container={true}
+        direction='row'
+        wrap='wrap'
+      >
+        {logo}
+        <SearchBar />
+        {filler}
       </Grid>
     );
   }
