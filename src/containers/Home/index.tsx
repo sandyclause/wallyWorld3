@@ -33,7 +33,7 @@ class HomePage extends React.Component<IHomePageType, {}> {
       <Layout>
         <Grid>
           <h1>
-            test
+            WIP lol
           </h1>
           <TrendsGroup />
         </Grid>

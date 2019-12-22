@@ -72,10 +72,7 @@ class ProductDetail extends React.Component<IProductDetailType, {}> {
       selectedProductId,
       selectedProductReview,
     } = this.props;
-
-    console.log(productData)
-    console.log(selectedProductReview)
-
+    
     const productReviews = selectedProductReview.get('reviews', List());
     const title = productData.get('name');
     const reviewNumber = productData.get('numReviews');

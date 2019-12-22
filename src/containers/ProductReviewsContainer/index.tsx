@@ -49,7 +49,7 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 
 		this.setState({
 			selectedReviewNumbers: stateCopy,
-		}, () => console.log(this.state.selectedReviewNumbers))
+		})
 	}
 
 	public handleDelete = (number?: number) => {
@@ -65,13 +65,13 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
       
       return this.setState({
         selectedReviewNumbers: stateCopy,
-      }, () => console.log(selectedReviewNumbers))
+      })
     }
 
 
 		this.setState({
 			selectedReviewNumbers: [],
-		}, () => console.log(selectedReviewNumbers))
+		})
 	}
 
   public render() {
