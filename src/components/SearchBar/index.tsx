@@ -54,26 +54,31 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
     } = this.props;
 
     return (
-      <Grid className={classes.root}>
-        <form onSubmit={this.handleSubmit}>
-          <div className={classes.inputContainer}>
-            <Input
-              placeholder='What are you looking for?'
-              className={classes.input}
-              inputProps={{
-                'aria-label': 'Description',
-              }}
-              onChange={this.handleChange}
-            />
-            <button className={classes.button}>
-              <FontAwesomeIcon
-                className={classes.searchIcon}
-                icon='search'
-                size='2x'
+      <Grid
+        container={true}
+        className={classes.root}
+      >
+        <div className={classes.formContainer}>
+          <form onSubmit={this.handleSubmit}>
+            <div className={classes.inputContainer}>
+              <Input
+                placeholder='What are you looking for?'
+                className={classes.input}
+                inputProps={{
+                  'aria-label': 'Description',
+                }}
+                onChange={this.handleChange}
               />
-            </button>
-          </div>
-        </form>
+              <button className={classes.button}>
+                <FontAwesomeIcon
+                  className={classes.searchIcon}
+                  icon='search'
+                  size='2x'
+                />
+              </button>
+            </div>
+          </form>
+        </div>
       </Grid>
     );
   }
@@ -81,7 +86,8 @@ class Header extends React.Component<IHeaderType, IHeaderState> {
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
-    width: '100%',
+    maxWidth: 855,
+    flex: '1 1 600px',
   },
   input: {
     borderBottom: '1px solid',
@@ -105,6 +111,9 @@ const styles = (theme: Theme): StyleRules => ({
     display: 'inline-block',
     cursor: 'pointer',
     border: 'none',
+  },
+  formContainer: {
+    width: '100%',
   },
   inputContainer: {
     width: '100%',
