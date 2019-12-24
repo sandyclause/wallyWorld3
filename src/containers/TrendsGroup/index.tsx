@@ -32,9 +32,12 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
   public componentDidMount() {
     const {
       dispatch,
+      products,
     } = this.props;
 
-    dispatch(new GetTrendsAction());
+    if (products.size === 0) {
+      dispatch(new GetTrendsAction());
+    }
   }
 
   public render() {
@@ -50,7 +53,7 @@ class TrendsGroup extends React.Component<ITrendsGroupType, {}> {
           container={true}
           direction='row'
           wrap='wrap'
-          justify='space-between'
+          justify='space-around'
         >
           {
             products && products.map((product: Record<IProduct>, index: number) => {

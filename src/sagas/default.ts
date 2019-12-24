@@ -43,7 +43,7 @@ function* apiCall(params: any) {
     error?: Error,
   } = {};
   try {
-  const resp: AxiosResponse = yield axios.request<AxiosRequestConfig>({
+    const resp: AxiosResponse = yield axios.request<AxiosRequestConfig>({
       url: "https://proxy.hackeryou.com",
       method: "GET",
       paramsSerializer: function (params) {
