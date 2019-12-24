@@ -31,16 +31,13 @@ class HomePage extends React.Component<IHomePageType, {}> {
   
   public render() {
     return (
-      <Grid
-        container={true}
-        style={{maxWidth: 1440, margin: '0 auto'}}
-      >
+      <>
         <Layout>
           <Grid>
             <TrendsGroup />
           </Grid>
         </Layout>
-      </Grid>
+      </>
     );
   }
 }

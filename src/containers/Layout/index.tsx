@@ -20,9 +20,14 @@ class Layout extends React.Component<ILayoutType, {}> {
   public render() {
     return (
       <>
+      <Grid
+        container={true}
+        style={{maxWidth: 1440, margin: '0 auto'}}
+      >
         <Header />
           {this.props.children}
         <Footer />
+      </Grid>
       </>
     );
   }
