@@ -108,21 +108,37 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
     const averageRating = reviewsData && averageOverallRating !== 'null'
       ? <Grid
           container={true}
-          direction='row'
+          direction='column'
           wrap='nowrap'
         >
-          <Typography>
-            Average Customer Ratings
-          </Typography>
-          <Typography>
-            Overall
-          </Typography>
-          <Stars
-            starNum={averageOverallRating}
-          />
-          <Typography>
-            {averageOverallRating}
-          </Typography>
+          <Grid
+            container={true}
+            justify='flex-start'
+            className={classes.customerRatingsTitle}
+          >
+            <Typography
+              variant='subtitle1'
+            >
+              Average Customer Ratings
+            </Typography>
+          </Grid>
+          <Grid
+            container={true}
+            justify='flex-start'
+            alignItems='center'
+          >
+            <Typography
+              variant='body2'
+            >
+              Overall
+            </Typography>
+            <Stars
+              starNum={averageOverallRating}
+            />
+            <Typography>
+              {averageOverallRating}
+            </Typography>
+          </Grid>
         </Grid>
       : null;
 
@@ -142,12 +158,22 @@ class ReviewBarChart extends React.Component<IReviewBarChartType, {}> {
           direction='column'
           wrap='nowrap'
         >
-          <Typography>
-            Rating Snapshot
-          </Typography>
-          <Typography>
-            Select a row below to filter reviews.
-          </Typography>
+          <Grid
+            container={true}
+            direction='column'
+            className={classes.ratingsSnapshotTitle}
+          >
+            <Typography
+              variant='subtitle1'
+            >
+              Rating Snapshot
+            </Typography>
+            <Typography
+              variant='body2'
+            >
+              Select a row below to filter reviews.
+            </Typography>
+          </Grid>
           {ratingBars}
         </Grid>
         <Grid
@@ -172,11 +198,11 @@ const styles = (theme: Theme): StyleRules => ({
   },
   barContainer: {
     minWidth: '300px',
-    background: 'lightgrey',
+    background: '#c1c1c1',
     margin: 10
   },
   bar: {
-    background: 'lightblue',
+    background: '#1267a4',
     height: theme.spacing(),
   },
   starIcon: {
@@ -184,6 +210,12 @@ const styles = (theme: Theme): StyleRules => ({
   },
   starCount: {
     width: 40
+  },
+  customerRatingsTitle: {
+    margin: `${theme.spacing(3)}px 0`
+  },
+  ratingsSnapshotTitle: {
+    textAlign: 'start'
   }
 })
 

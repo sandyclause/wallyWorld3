@@ -115,12 +115,19 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 				container={true}
 				direction='column'
 				wrap='nowrap'
+				className={classes.root}
 			>
-				<Typography
-					variant='h6'
+				<Grid
+					container={true}
+					justify='flex-start'
 				>
-					Reviews
-				</Typography>
+					<Typography
+						variant='h6'
+					>
+						Reviews
+					</Typography>
+				</Grid>
+
 				{/* review bar chart */}
 				<ReviewBarChart
 					reviewsData={selectedProductReview}
@@ -141,7 +148,7 @@ class ProductReviewsContainer extends React.Component<IProductReviewsContainerTy
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
-
+		marginTop: theme.spacing(4)
 	},
 	chip: {
 

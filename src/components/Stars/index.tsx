@@ -33,6 +33,7 @@ const Stars: React.FC<StarsProps> = (props: any) => {
         <FontAwesomeIcon
           key={i}
           icon='star-half-alt'
+          style={{color: '#1267a4'}}
         />
       )
     } 
@@ -41,6 +42,7 @@ const Stars: React.FC<StarsProps> = (props: any) => {
         <FontAwesomeIcon
           key={i}
           icon={['fas', 'star']}
+          style={{color: '#1267a4'}}
         />
       )
     }
