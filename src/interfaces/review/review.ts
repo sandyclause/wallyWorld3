@@ -25,6 +25,7 @@ export interface IReview {
   reviewText: string,
   title: string,
   upVotes: string,
+  submissionTime: string,
 }
 
 export interface IReviewWithProductInfo {
